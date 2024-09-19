@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('disciplinary_punishments', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('employee_id');
-            $table->text('doc');
-            $table->text('body');
+            $table->text('doc')->nullable();
+            $table->text('body')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

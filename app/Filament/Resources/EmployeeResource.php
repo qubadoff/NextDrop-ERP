@@ -214,7 +214,7 @@ class EmployeeResource extends Resource
                         ->label('İntizam cəzaları')
                         ->relationship()
                         ->schema([
-                            FileUpload::make('doc')->label('Sənəd')->required(),
+                            FileUpload::make('doc')->label('Sənəd'),
                             Textarea::make('body')->label('Digər qeydlər')->required(),
                         ])->columns(),
                 ]),
