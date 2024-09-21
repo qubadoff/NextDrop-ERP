@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('employee_id')->default(0);
             $table->integer('name_id')->default(\App\Employee\EducationStatusEnum::HIGH->value);
-            $table->integer('duration')->nullable();
+            $table->text('education_center')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->string('speciality')->nullable();
             $table->timestamps();
             $table->softDeletes();
