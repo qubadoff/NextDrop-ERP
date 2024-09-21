@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\VacationDay;
 use App\Vacation\VacationStatusEnum;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class VacationOperationObserver
 {
@@ -34,15 +35,18 @@ class VacationOperationObserver
     {
         if ($vacationDay->status === VacationStatusEnum::CANCELED) {
 
+            // Calculate total vacation days between start and end dates
             $startDate = Carbon::parse($vacationDay->vacation_start_date);
-
             $endDate = Carbon::parse($vacationDay->vacation_end_date);
-
             $totalDays = $startDate->diffInDays($endDate) + 1;
 
-            $vacationDay->vacation_all_days_count += $totalDays;
+            // Disable event dispatching temporarily to avoid recursion
+            DB::transaction(function () use ($vacationDay, $totalDays) {
+                $vacationDay->vacation_all_days_count += $totalDays;
 
-            $vacationDay->save();
+                // Save the model without triggering events
+                $vacationDay->saveQuietly();
+            });
         }
     }
 
