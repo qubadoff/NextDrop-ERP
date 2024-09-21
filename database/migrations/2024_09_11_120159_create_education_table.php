@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('education', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('employee_id')->default(0);
-            $table->integer('name_id')->default(\App\Employee\EducationStatusEnum::HIGH->value);
+            $table->integer('name_id')->default(\App\Employee\EducationStatusEnum::HIGH->value)->nullable();
             $table->text('education_center')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();

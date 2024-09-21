@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('employee_id');
             $table->text('doc')->nullable();
-            $table->text('body');
+            $table->text('body')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('languages', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('employee_id')->default(0);
-            $table->integer('name_id')->default(\App\Employee\LanguageStatusEnum::AZ->value);
-            $table->integer('level_id')->default(\App\Employee\LanguageLevelEnum::A1->value);
+            $table->bigInteger('employee_id')->default(0)->nullable();
+            $table->integer('name_id')->default(\App\Employee\LanguageStatusEnum::AZ->value)->nullable();
+            $table->integer('level_id')->default(\App\Employee\LanguageLevelEnum::A1->value)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

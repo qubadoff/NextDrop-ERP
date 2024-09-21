@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('employee_id')->default(0);
             $table->string('name')->nullable();
-            $table->integer('level')->default(\App\Employee\ProgramSpecialityLevelEnum::MIDDLE->value);
+            $table->integer('level')->default(\App\Employee\ProgramSpecialityLevelEnum::MIDDLE->value)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

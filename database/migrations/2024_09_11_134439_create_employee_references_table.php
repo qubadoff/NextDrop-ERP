@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('employee_references', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('employee_id');
-            $table->string('company_name');
-            $table->string('company_worker_name');
-            $table->string('company_worker_position');
+            $table->string('company_name')->nullable();
+            $table->string('company_worker_name')->nullable();
+            $table->string('company_worker_position')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('work_palaces', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('employee_id');
-            $table->string('name');
-            $table->string('position');
+            $table->string('name')->nullable();
+            $table->string('position')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
