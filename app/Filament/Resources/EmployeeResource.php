@@ -238,6 +238,7 @@ class EmployeeResource extends Resource
                 Tables\Columns\TextColumn::make('father_name')->label('Ata adı')->searchable(),
                 Tables\Columns\TextColumn::make('branch.name')->label('Filial')->searchable(),
                 Tables\Columns\TextColumn::make('department.name')->label('Filial')->searchable(),
+                Tables\Columns\TextColumn::make('position.name')->label('Filial')->searchable(),
                 Tables\Columns\TextColumn::make('created_at')->label('Əlavə olundu')->date(),
             ])
             ->filters([
