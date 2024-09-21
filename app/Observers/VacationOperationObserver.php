@@ -11,19 +11,28 @@ class VacationOperationObserver
 {
     /**
      * Handle the VacationDay "created" event.
+     * @throws \Exception
      */
     public function created(VacationDay $vacationDay): void
     {
         if ($vacationDay->status === VacationStatusEnum::APPROVED) {
 
             $startDate = Carbon::parse($vacationDay->vacation_start_date);
-
             $endDate = Carbon::parse($vacationDay->vacation_end_date);
 
+            // Calculate total days
             $totalDays = $startDate->diffInDays($endDate) + 1;
 
-            $vacationDay->vacation_all_days_count -= $totalDays;
+            // Check if the new vacation_all_days_count would be less than zero
+            $newVacationAllDaysCount = $vacationDay->vacation_all_days_count - $totalDays;
 
+            if ($newVacationAllDaysCount < 0) {
+                // Trigger an alert (this could be a flash message, exception, or log)
+                throw new \Exception('Vacation days cannot be negative!');
+            }
+
+            // Otherwise, proceed with updating and saving
+            $vacationDay->vacation_all_days_count = $newVacationAllDaysCount;
             $vacationDay->save();
         }
     }
