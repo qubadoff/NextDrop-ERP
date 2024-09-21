@@ -237,7 +237,13 @@ class EmployeeResource extends Resource
                     ->label('Ad Soyad Ata Adı')
                     ->searchable()
                     ->formatStateUsing(function ($row) {
-                        return $row->name . ' ' . $row->surname . ' ' . $row->father_name;
+                        // Ensure that the attributes exist and are not null
+                        $name = $row->name ?? '';
+                        $surname = $row->surname ?? '';
+                        $father_name = $row->father_name ?? '';
+
+                        // Concatenate the values with spaces in between
+                        return trim("$name $surname $father_name");
                     }),
                 Tables\Columns\TextColumn::make('birthday')->label('Doğum tarixi')->date(),
                 Tables\Columns\TextColumn::make('created_at')->label('Əlavə olundu')->date(),
