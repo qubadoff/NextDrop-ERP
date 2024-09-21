@@ -43,7 +43,9 @@ class SecondGroupResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->sortable(),
+                Tables\Columns\TextColumn::make('index')
+                    ->label('№')
+                    ->rowIndex(),
                 Tables\Columns\TextColumn::make('name')->searchable()->label('Ad'),
                 Tables\Columns\TextColumn::make('ownerGroup.name')->label('Əsas qrup')->badge(),
                 Tables\Columns\TextColumn::make('created_at')->label('Yaradıldı')->date(),

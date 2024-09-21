@@ -54,7 +54,9 @@ class EmployeeLeaveResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->sortable(),
+                Tables\Columns\TextColumn::make('index')
+                    ->label('№')
+                    ->rowIndex(),
                 Tables\Columns\TextColumn::make('employee.name')->label('İşçi')->searchable(),
                 Tables\Columns\TextColumn::make('start_date')->label('Başlanış tarixi')->dateTime(),
                 Tables\Columns\TextColumn::make('end_date')->label('Bitiş tarixi')->dateTime(),

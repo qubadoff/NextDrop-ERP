@@ -48,7 +48,9 @@ class PositionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->sortable(),
+                Tables\Columns\TextColumn::make('index')
+                    ->label('№')
+                    ->rowIndex(),
                 Tables\Columns\TextColumn::make('name')->searchable()->label('Ad'),
                 Tables\Columns\TextColumn::make('Department.name')->label('Departament')->badge(),
                 Tables\Columns\TextColumn::make('created_at')->label('Yaradıldı')->date(),

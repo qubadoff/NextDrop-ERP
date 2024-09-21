@@ -57,7 +57,9 @@ class EmployeePenalResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->sortable(),
+                Tables\Columns\TextColumn::make('index')
+                    ->label('№')
+                    ->rowIndex(),
                 Tables\Columns\TextColumn::make('employee.name')->label('İşçi')->searchable(),
                 Tables\Columns\TextColumn::make('penal_amount')->label('Cərimə məbləği')->money('azn'),
                 Tables\Columns\TextColumn::make('date')->label('Tarix')->date(),

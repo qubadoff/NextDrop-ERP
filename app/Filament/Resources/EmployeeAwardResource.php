@@ -59,7 +59,9 @@ class EmployeeAwardResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->sortable(),
+                Tables\Columns\TextColumn::make('index')
+                    ->label('№')
+                    ->rowIndex(),
                 Tables\Columns\TextColumn::make('employee.name')->label('İşçi')->searchable(),
                 Tables\Columns\TextColumn::make('award_amount')->label('Mükafat məbləği')->searchable()->money('AZN'),
                 Tables\Columns\TextColumn::make('date')->label('Tarix')->date(),

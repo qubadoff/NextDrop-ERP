@@ -56,7 +56,9 @@ class VacationDayResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->sortable(),
+                Tables\Columns\TextColumn::make('index')
+                    ->label('№')
+                    ->rowIndex(),
                 Tables\Columns\TextColumn::make('employee.name')->label('İşçi')->searchable(),
                 Tables\Columns\TextColumn::make('vacation_start_date')->label('Məzuniyyətin başlama vaxtı')->date(),
                 Tables\Columns\TextColumn::make('vacation_end_date')->label('Məzuniyyətin bitmə vaxtı')->date(),

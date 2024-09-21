@@ -52,7 +52,9 @@ class EmployeeAvansResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->sortable(),
+                Tables\Columns\TextColumn::make('index')
+                    ->label('№')
+                    ->rowIndex(),
                 Tables\Columns\TextColumn::make('employee.name')->label('İşçi')->searchable(),
                 Tables\Columns\TextColumn::make('amount')->label('Avans məbləği')->money('azn'),
                 Tables\Columns\TextColumn::make('date')->label('Tarix')->date(),
