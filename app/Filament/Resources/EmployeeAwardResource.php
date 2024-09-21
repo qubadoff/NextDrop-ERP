@@ -40,7 +40,6 @@ class EmployeeAwardResource extends Resource
                     DatePicker::make('date')->label('Tarix')->required(),
                     TextInput::make('award_amount')->label('Mükafat məbləği')->required()->suffix(' AZN')->numeric(),
                     TextInput::make('who_added')->label('Kim tərəfindən ?')->required(),
-                    Textarea::make('reason')->label('Mükafat səbəbi')->required(),
                     Select::make('award_type')->options([
                         EmployeeAwardType::ADD_SALARY->value => 'Maaşa əlavə',
                         EmployeeAwardType::NOW->value => 'Yerində',
@@ -50,6 +49,7 @@ class EmployeeAwardResource extends Resource
                         EmployeeAwardStatus::APPROVED->value => 'Qəbul edildi',
                         EmployeeAwardStatus::REJECTED->value => 'Qəbul edilmədi',
                     ])->required()->label('Status'),
+                    Textarea::make('reason')->label('Mükafat səbəbi')->required(),
                 ])->columns(3)
             ]);
     }
