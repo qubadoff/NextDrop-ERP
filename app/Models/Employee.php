@@ -18,7 +18,6 @@ class Employee extends Model
 
     protected $casts = [
         'docs' => 'array',
-        'penal_type' => EmployeePenalTypeEnum::class,
     ];
 
     public function education(): HasMany

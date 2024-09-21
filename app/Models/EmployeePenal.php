@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Employee\EmployeePenalStatus;
+use App\Employee\EmployeePenalTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,7 +17,9 @@ class EmployeePenal extends Model
     protected $guarded  = ['id'];
 
     protected $casts = [
-        'status' => EmployeePenalStatus::class
+        'status' => EmployeePenalStatus::class,
+        'penal_type' => EmployeePenalTypeEnum::class,
+
     ];
 
     public function employee(): BelongsTo
