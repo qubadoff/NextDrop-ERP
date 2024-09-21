@@ -32,7 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->colors([
-                'primary' => Color::Blue,
+                'primary' => Color::Green,
             ])
             ->maxContentWidth(MaxWidth::Full)
             ->sidebarWidth(100)
