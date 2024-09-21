@@ -38,12 +38,12 @@ class EmployeeAvansResource extends Resource
                     Select::make('employee_id')->relationship('employee', 'name')->required()->label('İşçi'),
                     DatePicker::make('date')->required()->label('Tarix'),
                     TextInput::make('amount')->required()->label('Məbləğ')->suffix(' AZN')->numeric(),
-                    Textarea::make('reason')->label('Səbəb'),
                     Select::make('status')->options([
                         EmployeeAvansStatus::PENDING->value => 'Gözləmədə',
                         EmployeeAvansStatus::APPROVED->value => 'Qəbul edildi',
                         EmployeeAvansStatus::REJECTED->value => 'Ləğv edildi',
                     ])->required()->label('Status'),
+                    Textarea::make('reason')->label('Səbəb'),
                 ])->columns(3),
             ]);
     }
