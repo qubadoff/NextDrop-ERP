@@ -242,8 +242,8 @@ class EmployeeResource extends Resource
                 Tables\Columns\TextColumn::make('department.name')->label('Departament')->searchable(),
                 Tables\Columns\TextColumn::make('position.name')->label('Vəzifə')->searchable(),
                 Tables\Columns\TextColumn::make('gross_salary')->label('Gross ə/h')->money('AZN'),
-                Tables\Columns\TextColumn::make('net_salary')->label('Gross ə/h')->money('AZN'),
-                Tables\Columns\TextColumn::make('created_at')->label('Əlavə olundu')->date(),
+                Tables\Columns\TextColumn::make('net_salary')->label('Net ə/h')->money('AZN'),
+                Tables\Columns\TextColumn::make('start_work_date')->label('İşə başlama vaxtı')->date(),
             ])
             ->filters([
                 //
