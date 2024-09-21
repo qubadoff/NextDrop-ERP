@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Vacation\VacationPayTypeEnum;
+use App\Vacation\VacationStatusEnum;
 use App\Vacation\VacationTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +20,7 @@ class VacationDay extends Model
     protected $casts = [
         'vacation_pay_type' => VacationPayTypeEnum::class,
         'vacation_type' => VacationTypeEnum::class,
+        'status' => VacationStatusEnum::class,
     ];
 
     public function employee(): BelongsTo

@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\VacationDayResource\Pages;
 use App\Models\VacationDay;
 use App\Vacation\VacationPayTypeEnum;
+use App\Vacation\VacationStatusEnum;
 use App\Vacation\VacationTypeEnum;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Section;
@@ -48,6 +49,11 @@ class VacationDayResource extends Resource
                         VacationTypeEnum::OFFICIAL->value => 'Rəsmi',
                         VacationTypeEnum::UNOFFICIAL->value => 'Qeyri rəsmi',
                     ])->required()->label('Məzuniyyət tipi'),
+                    Select::make('status')->options([
+                        VacationStatusEnum::APPROVED->value => 'Təsdiqləndi',
+                        VacationStatusEnum::CANCELED->value => 'Ləğv edildi',
+                        VacationStatusEnum::PENDING->value => 'Gözləmədə',
+                    ])->required()->label('Status')
                 ])->columns(4)
             ]);
     }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->float('amount')->nullable();
             $table->integer('vacation_pay_type')->default(\App\Vacation\VacationPayTypeEnum::PAID->value);
             $table->integer('vacation_type')->default(\App\Vacation\VacationTypeEnum::OFFICIAL->value);
+            $table->integer('status')->default(\App\Vacation\VacationStatusEnum::PENDING->value);
             $table->timestamps();
             $table->softDeletes();
         });
