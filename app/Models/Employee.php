@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Employee\EmployeePenalTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,6 +18,7 @@ class Employee extends Model
 
     protected $casts = [
         'docs' => 'array',
+        'penal_type' => EmployeePenalTypeEnum::class,
     ];
 
     public function education(): HasMany
