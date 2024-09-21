@@ -256,7 +256,7 @@ class EmployeeResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ExportBulkAction::make(),
+                    Tables\Actions\ExportBulkAction::make()->exporter(new Employee()),
                 ]),
             ])->defaultSort('created_at', 'desc');
     }
