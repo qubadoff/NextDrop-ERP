@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\VacationDay;
+use App\Vacation\VacationStatusEnum;
 use Carbon\Carbon;
 
 class VacationOperationObserver
@@ -12,14 +13,16 @@ class VacationOperationObserver
      */
     public function created(VacationDay $vacationDay): void
     {
-        $startDate = Carbon::parse($vacationDay->vacation_start_date);
-        $endDate = Carbon::parse($vacationDay->vacation_end_date);
+        if ($vacationDay->status === VacationStatusEnum::APPROVED->value) {
+            $startDate = Carbon::parse($vacationDay->vacation_start_date);
+            $endDate = Carbon::parse($vacationDay->vacation_end_date);
 
-        $totalDays = $startDate->diffInDays($endDate) + 1;
+            $totalDays = $startDate->diffInDays($endDate) + 1;
 
-        $vacationDay->vacation_all_days_count -= $totalDays;
+            $vacationDay->vacation_all_days_count -= $totalDays;
 
-        $vacationDay->save();
+            $vacationDay->save();
+        }
     }
 
     /**
