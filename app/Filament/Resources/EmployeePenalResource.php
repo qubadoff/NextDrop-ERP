@@ -39,7 +39,7 @@ class EmployeePenalResource extends Resource
                     Select::make('employee_id')->relationship('employee', 'name')->required()->label('İşçi'),
                     DatePicker::make('date')->label('Tarix')->required(),
                     TextInput::make('penal_amount')->label('Cərimə məbləği')->required()->suffix(' AZN')->numeric(),
-                    Textarea::make('reason')->label('Cərimənin səbəbəi')->required(),
+                    TextInput::make('who_added')->label('Kim tərəfindən ?')->required()->numeric(),
                     Select::make('penal_type')->options([
                         EmployeePenalTypeEnum::ONETIME->value => 'Birdəfəlik',
                         EmployeePenalTypeEnum::PART->value => 'Hissə-hissə',
@@ -49,6 +49,7 @@ class EmployeePenalResource extends Resource
                         EmployeePenalStatus::APPROVED->value => 'Qəbul edildi',
                         EmployeePenalStatus::REJECTED->value => 'Qəbul edilmədi',
                     ])->required()->label('Status'),
+                    Textarea::make('reason')->label('Cərimənin səbəbi')->required(),
                 ])->columns(3)
             ]);
     }

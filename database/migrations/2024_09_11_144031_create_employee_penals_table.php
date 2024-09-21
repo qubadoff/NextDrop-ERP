@@ -16,6 +16,7 @@ return new class extends Migration
             $table->bigInteger('employee_id');
             $table->dateTime('date');
             $table->float('penal_amount');
+            $table->string('who_added');
             $table->text('reason')->nullable();
             $table->integer('penal_type')->default(\App\Employee\EmployeePenalTypeEnum::ONETIME->value);
             $table->integer('status')->default(\App\Employee\EmployeePenalStatus::PENDING->value);
