@@ -43,7 +43,7 @@ class VacationDayResource extends Resource
                     Select::make('vacation_pay_type')->options([
                         VacationPayTypeEnum::PAID->value => 'Ödənişli',
                         VacationPayTypeEnum::UNPAID->value => 'Ödənişsiz',
-                    ])->required()->label('Məzuniyyətin növü'),
+                    ])->required()->label('Növü'),
                     Select::make('vacation_type')->options([
                         VacationTypeEnum::OFFICIAL->value => 'Rəsmi',
                         VacationTypeEnum::UNOFFICIAL->value => 'Qeyri rəsmi',
@@ -62,7 +62,7 @@ class VacationDayResource extends Resource
                 Tables\Columns\TextColumn::make('employee.name')->label('İşçi')->searchable(),
                 Tables\Columns\TextColumn::make('vacation_start_date')->label('Başlama vaxtı')->date(),
                 Tables\Columns\TextColumn::make('vacation_end_date')->label('Bitmə vaxtı')->date(),
-                Tables\Columns\TextColumn::make('vacation_pay_type')->label('Ödənmə tipi')->badge(),
+                Tables\Columns\TextColumn::make('vacation_pay_type')->label('Növü')->badge(),
                 Tables\Columns\TextColumn::make('vacation_type')->label('Məzuniyyət tipi')->badge(),
                 Tables\Columns\TextColumn::make('created_at')->label('Əlavə olundu')->date(),
                 Tables\Columns\TextColumn::make('updated_at')->label('Yeniləndi')->date(),
