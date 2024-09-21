@@ -217,7 +217,7 @@ class EmployeeResource extends Resource
                         ->relationship()
                         ->schema([
                             FileUpload::make('doc')->label('Sənəd'),
-                            Textarea::make('body')->label('Digər qeydlər')->required(),
+                            Textarea::make('body')->label('Qeyd'),
                         ])->columns(),
                 ]),
 
