@@ -235,7 +235,7 @@ class EmployeeResource extends Resource
                 Tables\Columns\TextColumn::make('index')
                     ->label('№')
                     ->formatStateUsing(function ($row, $state) {
-                        return $state->iteration;
+                        return $state + 1;
                     }),
                 Tables\Columns\TextColumn::make('name')->label('Ad')->searchable(),
                 Tables\Columns\TextColumn::make('surname')->label('Soyad')->searchable(),
