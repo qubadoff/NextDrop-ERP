@@ -234,9 +234,8 @@ class EmployeeResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('index')
                     ->label('№')
-                    ->formatStateUsing(function ($row, $state) {
-                        return $state + 1;
-                    }),
+                    ->formatStateUsing(fn ($rowLoop) => $rowLoop->getTable()->getPage() * $rowLoop->getTable()->getPerPage() + $rowLoop->iteration),
+
                 Tables\Columns\TextColumn::make('name')->label('Ad')->searchable(),
                 Tables\Columns\TextColumn::make('surname')->label('Soyad')->searchable(),
                 Tables\Columns\TextColumn::make('father_name')->label('Ata adı')->searchable(),
