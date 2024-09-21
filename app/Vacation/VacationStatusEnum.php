@@ -15,7 +15,6 @@ enum VacationStatusEnum: int implements HasLabel, HasColor
     {
         return match ($this) {
             self::APPROVED => 'Təsdiqləndi',
-            self::CANCELED => 'Ləğv edildi',
             self::PENDING => 'Gözləmədə',
         };
     }
