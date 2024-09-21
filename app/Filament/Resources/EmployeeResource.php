@@ -161,12 +161,12 @@ class EmployeeResource extends Resource
                         ->label('Proqram bilikləri')
                         ->relationship()
                         ->schema([
-                            TextInput::make('name')->label('Proqramın adı')->required(),
+                            TextInput::make('name')->label('Proqramın adı'),
                             Select::make('level')->options([
                                 ProgramSpecialityLevelEnum::SENIOR->value => 'Senior',
                                 ProgramSpecialityLevelEnum::MIDDLE->value => 'Middle',
                                 ProgramSpecialityLevelEnum::JUNIOR->value => 'Junior',
-                            ])->required()->label('Səviyyə'),
+                            ])->label('Səviyyə'),
                         ])->columns(),
                 ]),
 
