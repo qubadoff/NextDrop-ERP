@@ -206,8 +206,8 @@ class EmployeeResource extends Resource
                         ->label('İş yerləri')
                         ->relationship()
                         ->schema([
-                            TextInput::make('name')->required()->label('Şirkətin adı'),
-                            TextInput::make('position')->required()->label('Vəzifə'),
+                            TextInput::make('name')->label('Şirkətin adı'),
+                            TextInput::make('position')->label('Vəzifə'),
                         ])->columns(),
                 ]),
 
