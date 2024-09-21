@@ -71,6 +71,7 @@ class VacationDayResource extends Resource
                 Tables\Columns\TextColumn::make('vacation_end_date')->label('Bitmə vaxtı')->date(),
                 Tables\Columns\TextColumn::make('vacation_pay_type')->label('Növü')->badge(),
                 Tables\Columns\TextColumn::make('vacation_type')->label('Məzuniyyət tipi')->badge(),
+                Tables\Columns\TextColumn::make('status')->label('Status')->badge(),
                 Tables\Columns\TextColumn::make('created_at')->label('Əlavə olundu')->date(),
                 Tables\Columns\TextColumn::make('updated_at')->label('Yeniləndi')->date(),
             ])
