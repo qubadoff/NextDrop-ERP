@@ -233,9 +233,12 @@ class EmployeeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable(),
-                Tables\Columns\TextColumn::make('name')->label('Ad')->searchable(),
-                Tables\Columns\TextColumn::make('surname')->label('Soyad')->searchable(),
-                Tables\Columns\TextColumn::make('father_name')->label('Ata adı')->searchable(),
+                Tables\Columns\TextColumn::make('full_name')
+                    ->label('Ad, Soyad, Ata adı')
+                    ->formatStateUsing(function ($record) {
+                        return "{$record->name} {$record->surname} {$record->father_name}";
+                    })
+                    ->searchable(isIndividual: false),
                 Tables\Columns\TextColumn::make('birthday')->label('Doğum tarixi')->date(),
                 Tables\Columns\TextColumn::make('created_at')->label('Əlavə olundu')->date(),
                 Tables\Columns\TextColumn::make('updated_at')->label('Yeniləndi')->date(),
