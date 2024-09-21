@@ -177,8 +177,8 @@ class EmployeeResource extends Resource
                         ->relationship()
                         ->schema([
                             TextInput::make('name')->label('Sertifikatın adı'),
-                            DatePicker::make('date')->date('Y')->label('Tarix')
-                        ]),
+                            DatePicker::make('date')->label('Tarix')
+                        ])->columns(),
                 ]),
 
                 Section::make([
