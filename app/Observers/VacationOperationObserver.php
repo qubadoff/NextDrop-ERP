@@ -32,7 +32,18 @@ class VacationOperationObserver
      */
     public function updated(VacationDay $vacationDay): void
     {
-        //
+        if ($vacationDay->status === VacationStatusEnum::CANCELED) {
+
+            $startDate = Carbon::parse($vacationDay->vacation_start_date);
+
+            $endDate = Carbon::parse($vacationDay->vacation_end_date);
+
+            $totalDays = $startDate->diffInDays($endDate) + 1;
+
+            $vacationDay->vacation_all_days_count += $totalDays;
+
+            $vacationDay->save();
+        }
     }
 
     /**
