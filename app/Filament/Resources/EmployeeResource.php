@@ -126,7 +126,7 @@ class EmployeeResource extends Resource
                                 EducationStatusEnum::COLLEGE->value => 'Orta',
                                 EducationStatusEnum::MASTER->value => 'Magister',
                                 EducationStatusEnum::DOCTORATE->value => 'Doktorantura',
-                            ])->required()->label('Təhsil səviyyəsi'),
+                            ])->label('Təhsil səviyyəsi'),
                             TextInput::make('education_center')->label('Təhsil müəssisəsi'),
                             TextInput::make('speciality')->required()->label('İxtisas'),
                             DatePicker::make('start_date')->label('Başlanğıc vaxtı'),
