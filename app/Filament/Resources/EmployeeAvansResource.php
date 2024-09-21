@@ -60,8 +60,7 @@ class EmployeeAvansResource extends Resource
                 Tables\Columns\TextColumn::make('date')->label('Tarix')->date(),
                 Tables\Columns\TextColumn::make('status')->label('Status')->badge(),
                 Tables\Columns\TextColumn::make('created_at')->label('Əlavə olundu')->date(),
-                Tables\Columns\TextColumn::make('updated_at')->label('Yeniləndi')->date(),
-            ])
+            ])->columns(3)
             ->filters([
                 //
             ])
