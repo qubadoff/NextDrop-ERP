@@ -27,7 +27,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Support\Facades\Log;
 
 class EmployeeResource extends Resource
 {
@@ -234,21 +233,9 @@ class EmployeeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable(),
-                Tables\Columns\TextColumn::make('full_name')
-                    ->label('Ad Soyad Ata Adı')
-                    ->searchable()
-                    ->formatStateUsing(function ($row) {
-                        // Log the entire row for debugging
-                        Log::info('Row:', $row->toArray());
-
-                        // Ensure that the attributes exist and are not null
-                        $name = $row->name ?? '';
-                        $surname = $row->surname ?? '';
-                        $father_name = $row->father_name ?? '';
-
-                        // Concatenate the values with spaces in between
-                        return trim("$name $surname $father_name");
-                    }),
+                Tables\Columns\TextColumn::make('name')->label('Ad')->searchable(),
+                Tables\Columns\TextColumn::make('surname')->label('Soyad')->searchable(),
+                Tables\Columns\TextColumn::make('father_name')->label('Ata adı')->searchable(),
                 Tables\Columns\TextColumn::make('birthday')->label('Doğum tarixi')->date(),
                 Tables\Columns\TextColumn::make('created_at')->label('Əlavə olundu')->date(),
                 Tables\Columns\TextColumn::make('updated_at')->label('Yeniləndi')->date(),
