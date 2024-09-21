@@ -49,7 +49,7 @@ class EmployeeResource extends Resource
             ->schema([
                 Section::make([
                     TextInput::make('name')->required()->label('Adı'),
-                    TextInput::make('surname')->required()->label('Soy adı'),
+                    TextInput::make('surname')->required()->label('Soyadı'),
                     TextInput::make('father_name')->required()->label('Ata adı'),
                     TextInput::make('phone')->required()->label('Telefon'),
                     TextInput::make('email')->required()->email()->label('Email'),
@@ -64,7 +64,7 @@ class EmployeeResource extends Resource
                     ])->required()->label('Cins'),
                     TextInput::make('legal_address')->required()->label('Qeydiyyatda olduğu ünvan'),
                     TextInput::make('current_address')->required()->label('Yaşadığı ünvan'),
-                    TextInput::make('nationality')->required()->label('Milliyəit'),
+                    TextInput::make('nationality')->required()->label('Milliyət'),
                     Select::make('marital_status')->options([
                         MaritalStatusEnum::SINGLE->value => 'Subay',
                         MaritalStatusEnum::MARRIED->value => 'Evli',
@@ -101,12 +101,12 @@ class EmployeeResource extends Resource
                     Select::make('driver_license')->options([
                         DriverLicenseEnum::YES->value => 'Var',
                         DriverLicenseEnum::NO->value => 'Yoxdur',
-                    ])->required()->label('Sürücülük vəsiqəsi var ?'),
+                    ])->required()->label('Sürücülük vəsiqəsi'),
                     TextInput::make('driver_license_number')->label('Sürücülük vəsiqəsinin nömrəsi'),
                     Select::make('car')->options([
                         CarStatusEnum::YES->value => 'Var',
                         CarStatusEnum::NO->value => 'Yoxdur',
-                    ])->required()->label('Maşını var ?'),
+                    ])->required()->label('Avtomobili'),
                 ])->columns(3),
                 Section::make([
                     FileUpload::make('photo')->label('Şəkil')->image(),
