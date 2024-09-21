@@ -117,7 +117,6 @@ class EmployeeResource extends Resource
                 Section::make([
                     Repeater::make('education')
                         ->label('Təhsil')
-                        ->required()
                         ->relationship()
                         ->schema([
                             Select::make('name_id')->options([
@@ -128,7 +127,7 @@ class EmployeeResource extends Resource
                                 EducationStatusEnum::DOCTORATE->value => 'Doktorantura',
                             ])->label('Təhsil səviyyəsi'),
                             TextInput::make('education_center')->label('Təhsil müəssisəsi'),
-                            TextInput::make('speciality')->required()->label('İxtisas'),
+                            TextInput::make('speciality')->label('İxtisas'),
                             DatePicker::make('start_date')->label('Başlanğıc vaxtı'),
                             DatePicker::make('end_date')->label('Bitirmə vaxtı'),
                         ])->columns(3),
