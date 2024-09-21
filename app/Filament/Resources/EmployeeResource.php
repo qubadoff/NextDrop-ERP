@@ -101,12 +101,12 @@ class EmployeeResource extends Resource
                     Select::make('driver_license')->options([
                         DriverLicenseEnum::YES->value => 'Var',
                         DriverLicenseEnum::NO->value => 'Yoxdur',
-                    ])->required()->label('Sürücülük vəsiqəsi'),
+                    ])->label('Sürücülük vəsiqəsi'),
                     TextInput::make('driver_license_number')->label('Sürücülük vəsiqəsinin nömrəsi'),
                     Select::make('car')->options([
                         CarStatusEnum::YES->value => 'Var',
                         CarStatusEnum::NO->value => 'Yoxdur',
-                    ])->required()->label('Avtomobili'),
+                    ])->label('Avtomobili'),
                 ])->columns(3),
                 Section::make([
                     FileUpload::make('photo')->label('Şəkil')->image(),
