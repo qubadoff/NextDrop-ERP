@@ -79,6 +79,7 @@ class EmployeeResource extends Resource
                 ])->columns(5),
 
                 Section::make([
+                    Select::make('branch_id')->relationship('branch', 'name')->required()->label('Filial'),
                     Select::make('department_id')->relationship('department', 'name')->required()->label('Departament'),
                     Select::make('position_id')->relationship('position', 'name')->required()->label('Vəzifə'),
                     DatePicker::make('start_work_date')->required()->label('İşə başlama vaxtı'),

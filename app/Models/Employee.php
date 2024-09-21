@@ -44,6 +44,11 @@ class Employee extends Model
         return $this->hasMany(EmployeeWorkHour::class, 'employee_id', 'id');
     }
 
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
