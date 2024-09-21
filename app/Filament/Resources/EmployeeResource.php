@@ -234,11 +234,11 @@ class EmployeeResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('full_name')
-                    ->label('Ad, Soyad, Ata adı')
-                    ->formatStateUsing(function ($record) {
-                        return "{$record->name} {$record->surname} {$record->father_name}";
-                    })
-                    ->searchable(isIndividual: false),
+                    ->label('Ad Soyad Ata Adı')
+                    ->searchable()
+                    ->formatStateUsing(function ($row) {
+                        return $row->name . ' ' . $row->surname . ' ' . $row->father_name;
+                    }),
                 Tables\Columns\TextColumn::make('birthday')->label('Doğum tarixi')->date(),
                 Tables\Columns\TextColumn::make('created_at')->label('Əlavə olundu')->date(),
                 Tables\Columns\TextColumn::make('updated_at')->label('Yeniləndi')->date(),
