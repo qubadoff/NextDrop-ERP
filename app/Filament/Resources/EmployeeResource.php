@@ -236,9 +236,9 @@ class EmployeeResource extends Resource
                 Tables\Columns\TextColumn::make('name')->label('Ad')->searchable(),
                 Tables\Columns\TextColumn::make('surname')->label('Soyad')->searchable(),
                 Tables\Columns\TextColumn::make('father_name')->label('Ata adı')->searchable(),
-                Tables\Columns\TextColumn::make('birthday')->label('Doğum tarixi')->date(),
+                Tables\Columns\TextColumn::make('branch.name')->label('Filial')->searchable(),
+                Tables\Columns\TextColumn::make('department.name')->label('Filial')->searchable(),
                 Tables\Columns\TextColumn::make('created_at')->label('Əlavə olundu')->date(),
-                Tables\Columns\TextColumn::make('updated_at')->label('Yeniləndi')->date(),
             ])
             ->filters([
                 //
