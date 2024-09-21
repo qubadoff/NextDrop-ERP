@@ -52,7 +52,6 @@ class VacationDayResource extends Resource
                     ])->required()->label('Məzuniyyət tipi'),
                     Select::make('status')->options([
                         VacationStatusEnum::APPROVED->value => 'Təsdiqləndi',
-                        VacationStatusEnum::CANCELED->value => 'Ləğv edildi',
                         VacationStatusEnum::PENDING->value => 'Gözləmədə',
                     ])->required()->label('Status')
                 ])->columns(4)
