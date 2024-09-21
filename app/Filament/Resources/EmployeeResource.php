@@ -237,6 +237,9 @@ class EmployeeResource extends Resource
                     ->label('Ad Soyad Ata Adı')
                     ->searchable()
                     ->formatStateUsing(function ($row) {
+                        // Log the entire row for debugging
+                        \Log::info('Row:', $row->toArray());
+
                         // Ensure that the attributes exist and are not null
                         $name = $row->name ?? '';
                         $surname = $row->surname ?? '';
