@@ -38,6 +38,7 @@ class VacationDayResource extends Resource
                 Section::make([
                     Select::make('employee_id')->relationship('employee', 'name')
                         ->required()->label('İşçi'),
+                    TextInput::make('vacation_all_days_count')->required()->label('İllik məzuniyyət ( gün )')->numeric(),
                     DatePicker::make('vacation_start_date')->required()->label('Məzuniyyətin başlama vaxtı'),
                     DatePicker::make('vacation_end_date')->required()->label('Məzuniyyətin bitmə vaxtı'),
                     TextInput::make('amount')->label('Məbləğ')->suffix(' AZN'),

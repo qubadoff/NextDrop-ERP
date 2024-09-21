@@ -94,7 +94,6 @@ class EmployeeResource extends Resource
                         EmployeeWorkStatus::OFFICIAL->value => 'Rəsmi',
                         EmployeeWorkStatus::UNOFFICIAL->value => 'Qeyri rəsmi',
                     ])->required()->label('İş tipi'),
-                    TextInput::make('vacation')->required()->label('Məzuniyyət günlərinin sayı')->numeric(),
                 ])->columns(4),
 
                 Section::make([

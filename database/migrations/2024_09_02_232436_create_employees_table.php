@@ -44,7 +44,6 @@ return new class extends Migration
             $table->float('gross_salary')->default(0);
             $table->float('net_salary')->default(0);
             $table->integer('work_status')->default(\App\Employee\EmployeeWorkStatus::OFFICIAL->value);
-            $table->integer('vacation')->default(0);
 
             $table->text('other_info')->nullable();
             $table->text('docs')->nullable();
