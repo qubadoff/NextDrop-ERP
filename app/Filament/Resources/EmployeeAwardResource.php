@@ -4,8 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Employee\EmployeeAwardStatus;
 use App\Employee\EmployeeAwardType;
-use App\Employee\EmployeePenalStatus;
-use App\Employee\EmployeePenalTypeEnum;
 use App\Filament\Resources\EmployeeAwardResource\Pages;
 use App\Models\EmployeeAward;
 use Filament\Forms\Components\DatePicker;
@@ -41,7 +39,8 @@ class EmployeeAwardResource extends Resource
                     Select::make('employee_id')->relationship('employee', 'name')->required()->label('İşçi'),
                     DatePicker::make('date')->label('Tarix')->required(),
                     TextInput::make('award_amount')->label('Mükafat məbləği')->required()->suffix(' AZN')->numeric(),
-                    Textarea::make('reason')->label('Mükafat səbəbəi')->required(),
+                    TextInput::make('who_added')->label('Kim tərəfindən ?')->required(),
+                    Textarea::make('reason')->label('Mükafat səbəbi')->required(),
                     Select::make('award_type')->options([
                         EmployeeAwardType::ADD_SALARY->value => 'Maaşa əlavə',
                         EmployeeAwardType::NOW->value => 'Yerində',
@@ -65,9 +64,10 @@ class EmployeeAwardResource extends Resource
                 Tables\Columns\TextColumn::make('employee.name')->label('İşçi')->searchable(),
                 Tables\Columns\TextColumn::make('award_amount')->label('Mükafat məbləği')->searchable()->money('AZN'),
                 Tables\Columns\TextColumn::make('date')->label('Tarix')->date(),
+                Tables\Columns\TextColumn::make('penal_type')->label('Tutulma tipi')->badge(),
+                Tables\Columns\TextColumn::make('who_added')->label('Kim tərəfindən ?'),
                 Tables\Columns\TextColumn::make('status')->label('Status')->badge(),
                 Tables\Columns\TextColumn::make('created_at')->label('Əlavə olundu')->date(),
-                Tables\Columns\TextColumn::make('updated_at')->label('Yeniləndi')->date(),
             ])
             ->filters([
                 //

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->dateTime('date');
             $table->float('award_amount');
             $table->text('reason')->nullable();
+            $table->string('who_added')->nullable();
             $table->integer('award_type')->default(\App\Employee\EmployeeAwardType::ADD_SALARY->value);
             $table->integer('status')->default(\App\Employee\EmployeeAwardStatus::PENDING->value);
             $table->timestamps();
