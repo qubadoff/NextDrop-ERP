@@ -127,10 +127,10 @@ class EmployeeResource extends Resource
                                 EducationStatusEnum::MASTER->value => 'Magister',
                                 EducationStatusEnum::DOCTORATE->value => 'Doktorantura',
                             ])->required()->label('Təhsil səviyyəsi'),
-                            TextInput::make('education_center')->label('Təhsil müəsisəsi'),
-                            DatePicker::make('start_date')->label('Başlanğın vaxtı'),
-                            DatePicker::make('end_date')->label('Bitirmə vaxtı'),
+                            TextInput::make('education_center')->label('Təhsil müəssisəsi'),
                             TextInput::make('speciality')->required()->label('İxtisas'),
+                            DatePicker::make('start_date')->label('Başlanğıc vaxtı'),
+                            DatePicker::make('end_date')->label('Bitirmə vaxtı'),
                         ])->columns(3),
                 ]),
 
