@@ -44,7 +44,7 @@ class EmployeeAvansResource extends Resource
                         EmployeeAvansStatus::APPROVED->value => 'Qəbul edildi',
                         EmployeeAvansStatus::REJECTED->value => 'Ləğv edildi',
                     ])->required()->label('Status'),
-                ])
+                ])->columns(3),
             ]);
     }
 
@@ -60,7 +60,7 @@ class EmployeeAvansResource extends Resource
                 Tables\Columns\TextColumn::make('date')->label('Tarix')->date(),
                 Tables\Columns\TextColumn::make('status')->label('Status')->badge(),
                 Tables\Columns\TextColumn::make('created_at')->label('Əlavə olundu')->date(),
-            ])->columns(3)
+            ])
             ->filters([
                 //
             ])
