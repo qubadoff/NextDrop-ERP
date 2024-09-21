@@ -27,6 +27,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Log;
 
 class EmployeeResource extends Resource
 {
@@ -238,7 +239,7 @@ class EmployeeResource extends Resource
                     ->searchable()
                     ->formatStateUsing(function ($row) {
                         // Log the entire row for debugging
-                        \Log::info('Row:', $row->toArray());
+                        Log::info('Row:', $row->toArray());
 
                         // Ensure that the attributes exist and are not null
                         $name = $row->name ?? '';
