@@ -233,9 +233,9 @@ class EmployeeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('index')
-                    ->label('#')
-                    ->formatStateUsing(function ($rowLoop) {
-                        return $rowLoop->iteration;
+                    ->label('№')
+                    ->formatStateUsing(function ($row, $state) {
+                        return $state->iteration;
                     }),
                 Tables\Columns\TextColumn::make('name')->label('Ad')->searchable(),
                 Tables\Columns\TextColumn::make('surname')->label('Soyad')->searchable(),
