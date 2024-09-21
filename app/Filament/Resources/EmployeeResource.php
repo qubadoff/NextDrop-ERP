@@ -235,13 +235,14 @@ class EmployeeResource extends Resource
                 Tables\Columns\TextColumn::make('index')
                     ->label('№')
                     ->rowIndex(),
-
                 Tables\Columns\TextColumn::make('name')->label('Ad')->searchable(),
                 Tables\Columns\TextColumn::make('surname')->label('Soyad')->searchable(),
                 Tables\Columns\TextColumn::make('father_name')->label('Ata adı')->searchable(),
                 Tables\Columns\TextColumn::make('branch.name')->label('Filial')->searchable(),
                 Tables\Columns\TextColumn::make('department.name')->label('Departament')->searchable(),
                 Tables\Columns\TextColumn::make('position.name')->label('Vəzifə')->searchable(),
+                Tables\Columns\TextColumn::make('gross_salary')->label('Gross ə/h')->money('AZN'),
+                Tables\Columns\TextColumn::make('net_salary')->label('Gross ə/h')->money('AZN'),
                 Tables\Columns\TextColumn::make('created_at')->label('Əlavə olundu')->date(),
             ])
             ->filters([
