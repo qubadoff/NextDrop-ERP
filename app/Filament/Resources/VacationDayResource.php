@@ -67,7 +67,7 @@ class VacationDayResource extends Resource
                     ->label('№')
                     ->rowIndex(),
                 Tables\Columns\TextColumn::make('employee.name')->label('İşçi')->searchable(),
-                Tables\Columns\TextColumn::make('employee.vacation')->label('Məzuniyyət günlərinin sayı')->badge(),
+                Tables\Columns\TextColumn::make('vacation_all_days_count')->label('Məzuniyyət günlərinin sayı')->badge(),
                 Tables\Columns\TextColumn::make('vacation_start_date')->label('Başlama vaxtı')->date(),
                 Tables\Columns\TextColumn::make('vacation_end_date')->label('Bitmə vaxtı')->date(),
                 Tables\Columns\TextColumn::make('vacation_pay_type')->label('Növü')->badge(),
