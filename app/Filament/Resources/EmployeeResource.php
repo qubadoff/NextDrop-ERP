@@ -136,7 +136,6 @@ class EmployeeResource extends Resource
                 Section::make([
                     Repeater::make('language')
                         ->label('Dillər')
-                        ->required()
                         ->relationship()
                         ->schema([
                             Select::make('name_id')->options([
@@ -145,7 +144,7 @@ class EmployeeResource extends Resource
                                 LanguageStatusEnum::RU->value => 'Rus',
                                 LanguageStatusEnum::DE->value => 'Alman',
                                 LanguageStatusEnum::TR->value => 'Türk',
-                            ])->required()->label('Dil'),
+                            ])->label('Dil'),
                             Select::make('level_id')->options([
                                 LanguageLevelEnum::A1->value => 'A1',
                                 LanguageLevelEnum::A2->value => 'A2',
@@ -153,7 +152,7 @@ class EmployeeResource extends Resource
                                 LanguageLevelEnum::B2->value => 'B2',
                                 LanguageLevelEnum::C1->value => 'C1',
                                 LanguageLevelEnum::C2->value => 'C2',
-                            ])->required()->label('Səviyyə')
+                            ])->label('Səviyyə')
                         ])->columns(),
                 ]),
 
