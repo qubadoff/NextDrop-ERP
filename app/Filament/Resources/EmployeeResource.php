@@ -232,13 +232,12 @@ class EmployeeResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('name')->label('Ad')->searchable(),
                 Tables\Columns\TextColumn::make('surname')->label('Soyad')->searchable(),
                 Tables\Columns\TextColumn::make('father_name')->label('Ata adı')->searchable(),
                 Tables\Columns\TextColumn::make('branch.name')->label('Filial')->searchable(),
-                Tables\Columns\TextColumn::make('department.name')->label('Filial')->searchable(),
-                Tables\Columns\TextColumn::make('position.name')->label('Filial')->searchable(),
+                Tables\Columns\TextColumn::make('department.name')->label('Departament')->searchable(),
+                Tables\Columns\TextColumn::make('position.name')->label('Vəzifə')->searchable(),
                 Tables\Columns\TextColumn::make('created_at')->label('Əlavə olundu')->date(),
             ])
             ->filters([
