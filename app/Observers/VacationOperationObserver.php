@@ -13,8 +13,10 @@ class VacationOperationObserver
      */
     public function created(VacationDay $vacationDay): void
     {
-        if ($vacationDay->status === VacationStatusEnum::APPROVED->value) {
+        if ($vacationDay->status === VacationStatusEnum::APPROVED) {
+
             $startDate = Carbon::parse($vacationDay->vacation_start_date);
+
             $endDate = Carbon::parse($vacationDay->vacation_end_date);
 
             $totalDays = $startDate->diffInDays($endDate) + 1;
