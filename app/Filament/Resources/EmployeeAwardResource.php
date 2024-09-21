@@ -64,7 +64,7 @@ class EmployeeAwardResource extends Resource
                 Tables\Columns\TextColumn::make('employee.name')->label('İşçi')->searchable(),
                 Tables\Columns\TextColumn::make('award_amount')->label('Mükafat məbləği')->searchable()->money('AZN'),
                 Tables\Columns\TextColumn::make('date')->label('Tarix')->date(),
-                Tables\Columns\TextColumn::make('penal_type')->label('Tutulma tipi')->badge(),
+                Tables\Columns\TextColumn::make('award_type')->label('Ödəniş tipi')->badge(),
                 Tables\Columns\TextColumn::make('who_added')->label('Kim tərəfindən ?'),
                 Tables\Columns\TextColumn::make('status')->label('Status')->badge(),
                 Tables\Columns\TextColumn::make('created_at')->label('Əlavə olundu')->date(),
