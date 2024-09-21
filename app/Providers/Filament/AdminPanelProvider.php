@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use BezhanSalleh\FilamentExceptions\FilamentExceptionsPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -45,7 +46,10 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 //Widgets\FilamentInfoWidget::class,
             ])
-            ->plugin(\TomatoPHP\FilamentMediaManager\FilamentMediaManagerPlugin::make())
+            ->plugins([
+                \TomatoPHP\FilamentMediaManager\FilamentMediaManagerPlugin::make(),
+                FilamentExceptionsPlugin::make()
+            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
