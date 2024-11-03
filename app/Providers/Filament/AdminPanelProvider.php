@@ -47,7 +47,8 @@ class AdminPanelProvider extends PanelProvider
                 //Widgets\FilamentInfoWidget::class,
             ])
             ->plugins([
-                \TomatoPHP\FilamentMediaManager\FilamentMediaManagerPlugin::make()
+                \TomatoPHP\FilamentMediaManager\FilamentMediaManagerPlugin::make(),
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
             ])
             ->middleware([
                 EncryptCookies::class,
