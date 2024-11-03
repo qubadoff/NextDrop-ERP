@@ -24,7 +24,7 @@ class ViewBranch extends ViewRecord
                         TextEntry::make('location')->label('Location'),
                         TextEntry::make('field_of_action')->label('Field of action'),
                         TextEntry::make('employee_count')->label('Employee count'),
-                        ImageEntry::make('qr_code_path')->label('Qr kod')->width(200)->shouldOpenUrlInNewTab(),
+                        ImageEntry::make('qr_code_path')->label('Qr kod')->width(300)->height(300),
                     ])->columns(5),
             ]);
     }
