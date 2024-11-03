@@ -58,6 +58,7 @@ class BranchResource extends Resource
                 Tables\Columns\TextColumn::make('voen')->searchable()->label('Vöen'),
                 Tables\Columns\TextColumn::make('created_at')->label('Yaradıldı')->date(),
                 Tables\Columns\TextColumn::make('updated_at')->label('Yeniləndi')->date(),
+                Tables\Columns\ImageColumn::make('qr_code_path')->label('Qr kod'),
             ])
             ->filters([
                 //

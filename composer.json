@@ -10,6 +10,7 @@
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "psr/simple-cache": "^2.0",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "tomatophp/filament-media-manager": "^1.1"
     },
     "require-dev": {
