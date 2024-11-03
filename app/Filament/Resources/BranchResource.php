@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\BranchResource\Pages;
 use App\Models\Branch;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -42,7 +43,8 @@ class BranchResource extends Resource
                         '100' => '50-100',
                         '200' => '100-200',
                         '500' => '200-500',
-                    ])->required()->label('İşçi sayı')
+                    ])->required()->label('İşçi sayı'),
+                    FileUpload::make('qr_code_path')->label('Qr kod')->openable()->downloadable(),
                 ])
             ]);
     }
