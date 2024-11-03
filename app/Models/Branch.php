@@ -21,9 +21,12 @@ class Branch extends Model
             $qrContent = Str::uuid();
             $qrCodePath = 'public/qrcodes/' . $qrContent . '.png';
 
+            // QR kodunu storage/app/public/qrcodes dizinine kaydet
             QrCode::format('png')->size(200)->generate($qrContent, storage_path('app/' . $qrCodePath));
 
-            $branch->qr_code_path = str_replace('public/', '', $qrCodePath);
+            // Kayıt sırasında sadece 'qrcodes/...' kısmını saklayın
+            $branch->qr_code_path = 'qrcodes/' . $qrContent . '.png';
         });
     }
+
 }
