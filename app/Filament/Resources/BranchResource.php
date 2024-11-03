@@ -44,7 +44,6 @@ class BranchResource extends Resource
                         '200' => '100-200',
                         '500' => '200-500',
                     ])->required()->label('İşçi sayı'),
-                    FileUpload::make('qr_code_path')->label('Qr kod')->openable()->downloadable(),
                 ])
             ]);
     }
