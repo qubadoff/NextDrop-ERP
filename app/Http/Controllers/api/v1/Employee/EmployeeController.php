@@ -27,8 +27,6 @@ class EmployeeController extends Controller
             'longitude' => 'required',
         ]);
 
-        dd(Auth::guard('employee')->user()->id);
-
         DB::beginTransaction();
 
         try {
