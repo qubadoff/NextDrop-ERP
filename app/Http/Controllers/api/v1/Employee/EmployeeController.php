@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
-    public function list()
+    public function list(): JsonResponse
     {
-
+        return response()->json(EmployeeAttendance::where('employee_id', Auth::guard('employee')->user()->id)->get());
     }
 
     public function sendAttendance(Request $request): JsonResponse
