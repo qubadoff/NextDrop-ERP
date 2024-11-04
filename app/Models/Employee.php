@@ -85,4 +85,9 @@ class Employee extends Authenticatable
     {
         return $this->hasMany(DisciplinaryPunishment::class, 'employee_id', 'id');
     }
+
+    public function EmployeeAttendance(): HasMany
+    {
+        return $this->hasMany(EmployeeAttendance::class, 'employee_id', 'id');
+    }
 }
