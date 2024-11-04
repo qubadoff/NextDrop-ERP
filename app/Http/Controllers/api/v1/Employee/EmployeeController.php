@@ -20,8 +20,8 @@ class EmployeeController extends Controller
     public function sendAttendance(Request $request): JsonResponse
     {
         $request->validate([
-            'employee_in' => 'date',
-            'employee_out' => 'date',
+            'employee_in' => 'date|after_or_equal:today|before_or_equal:employee_out',
+            'employee_out' => 'nullable|date|after_or_equal:employee_in|before_or_equal:today',
             'location' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',
