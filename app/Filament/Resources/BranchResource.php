@@ -35,7 +35,6 @@ class BranchResource extends Resource
                 Section::make([
                     TextInput::make('name')->required()->label('Ad'),
                     TextInput::make('voen')->required()->label('Vöen'),
-                    TextInput::make('location')->required()->label('Ünvan'),
                     TextInput::make('field_of_action')->required()->label('Fəaliyyət sahəsi'),
                     Select::make('employee_count')->options([
                         '25' => '0-25',
@@ -46,9 +45,9 @@ class BranchResource extends Resource
                     ])->required()->label('İşçi sayı'),
                 ]),
                 Section::make([
-                    TextInput::make('location')->label('Ünvan'),
-                    TextInput::make('latitude')->label('Kordinat 1 (lat)'),
-                    TextInput::make('longitude')->label('Kordinat 2 (lng)'),
+                    TextInput::make('location')->label('Ünvan')->required(),
+                    TextInput::make('latitude')->label('Kordinat 1 (lat)')->required(),
+                    TextInput::make('longitude')->label('Kordinat 2 (lng)')->required(),
                 ])
             ]);
     }
