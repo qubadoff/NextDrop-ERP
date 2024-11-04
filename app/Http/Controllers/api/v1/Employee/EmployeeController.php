@@ -114,10 +114,10 @@ class EmployeeController extends Controller
             $sinAlpha = $cosU1 * $cosU2 * $sinLambda / $sinSigma;
             $cos2Alpha = 1 - $sinAlpha * $sinAlpha;
             $cos2SigmaM = $cosSigma - 2 * $sinU1 * $sinU2 / $cos2Alpha;
-            $C = $f / 16 * $cos2Alpha * (4 + $f * (4 - 3 * $cos2Alpha));
+            $C = $f / 16 * $cos2Alpha * (4 + $f * (4 - 3 * $cos2Alpha)); // Corrected $C usage
             $lambdaP = $lambda;
-            $lambda = $L + (1 - C) * $f * $sinAlpha *
-                ($sigma + C * $sinSigma * ($cos2SigmaM + C * $cosSigma * (-1 + 2 * $cos2SigmaM * $cos2SigmaM)));
+            $lambda = $L + (1 - $C) * $f * $sinAlpha *
+                ($sigma + $C * $sinSigma * ($cos2SigmaM + $C * $cosSigma * (-1 + 2 * $cos2SigmaM * $cos2SigmaM)));
         }
 
         if ($iterLimit == 0) {
@@ -130,7 +130,9 @@ class EmployeeController extends Controller
         $deltaSigma = $B * $sinSigma * ($cos2SigmaM + $B / 4 * ($cosSigma * (-1 + 2 * $cos2SigmaM * $cos2SigmaM) -
                     $B / 6 * $cos2SigmaM * (-3 + 4 * $sinSigma * $sinSigma) * (-3 + 4 * $cos2SigmaM * $cos2SigmaM)));
 
-        return $b * $A * ($sigma - $deltaSigma); // Distance in meters
+        $distance = $b * $A * ($sigma - $deltaSigma);
+
+        return $distance; // Distance in meters
     }
 
 
