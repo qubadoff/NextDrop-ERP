@@ -27,6 +27,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Hash;
 
 class EmployeeResource extends Resource
 {
@@ -53,7 +54,9 @@ class EmployeeResource extends Resource
                     TextInput::make('father_name')->required()->label('Ata adı'),
                     TextInput::make('phone')->required()->label('Telefon'),
                     TextInput::make('email')->required()->email()->unique('employees', 'email', ignoreRecord: true)->label('Email'),
-                    TextInput::make('password')->required()->password()->label('Password'),
+                    TextInput::make('password')->required()->password()
+                        ->dehydrateStateUsing(fn ($state) => filled($state) ? Hash::make($state) : null)
+                        ->label('Password'),
                     DatePicker::make('birthday')->required()->label('Doğum tarixi'),
                     TextInput::make('id_number')->required()->label('Ş/V seriya nömrəsi'),
                     TextInput::make('id_pin_code')->required()->label('Ş/V fin kodu'),
