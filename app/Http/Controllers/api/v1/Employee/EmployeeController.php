@@ -39,6 +39,8 @@ class EmployeeController extends Controller
             $branchLongitude
         );
 
+        dd($distance);
+
         if ($distance > 200) {
             return response()->json(['message' => 'Filila yaxin deyilsen !'], 422);
         }
