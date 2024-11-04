@@ -27,10 +27,6 @@ class EmployeeController extends Controller
             'longitude' => 'required',
         ]);
 
-        if (!Auth::check()) {
-            return response()->json(['message' => 'Unauthorized'], 401);
-        }
-
         DB::beginTransaction();
 
         try {

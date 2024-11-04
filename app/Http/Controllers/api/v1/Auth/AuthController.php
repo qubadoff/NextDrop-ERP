@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -29,12 +28,10 @@ class AuthController extends Controller
 
         $token = $employee->createToken('EmployeeLoginToken')->plainTextToken;
 
-        $expires_in = config('sanctum.expiration');
-
         DB::table('personal_access_tokens')
             ->where('tokenable_id', $employee->id)
             ->update([
-                'expires_at' => now()->addMinutes($expires_in),
+                'expires_at' => now()->addMinutes(config('sanctum.expiration')),
             ]);
 
         return response()->json([
