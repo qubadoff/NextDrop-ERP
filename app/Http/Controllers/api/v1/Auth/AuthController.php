@@ -5,6 +5,8 @@ namespace App\Http\Controllers\api\v1\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -17,17 +19,21 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (!auth()->guard('api')->attempt($request->only('email', 'password'))) {
-            return response()->json([
-                'message' => 'Invalid login details'
-            ], 401);
-        }
+        $employee = Auth::guard('employee')->user();
 
-        $user = auth()->user();
+        $token = $employee->createToken('CustomerLoginToken')->plainTextToken;
+
+        $expires_in = config('sanctum.expiration');
+
+        DB::table('personal_access_tokens')
+            ->where('tokenable_id', $employee->id)
+            ->update([
+                'expires_at' => now()->addMinutes($expires_in),
+            ]);
 
         return response()->json([
-            'token' => $user->createToken('EmployeeLoginToken')->plainTextToken,
-            'user' => $user
+            'token' => $token,
+            'employee' => $employee
         ]);
     }
 }
