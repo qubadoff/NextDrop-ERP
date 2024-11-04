@@ -79,29 +79,23 @@ class EmployeeController extends Controller
      * @param float $lon2 Longitude of the second location
      * @return float Distance in meters
      */
-    private function calculateDistance(float $lat1, float $lon1, float $lat2, float $lon2): float
+    private function calculateDistance($lat1, $lon1, $lat2, $lon2): float
     {
+        $earthRadius = 6371000; // Radius of Earth in meters
+
         // Convert degrees to radians
         $lat1 = deg2rad($lat1);
         $lon1 = deg2rad($lon1);
         $lat2 = deg2rad($lat2);
         $lon2 = deg2rad($lon2);
 
-        // Difference in coordinates
+        // Differences in coordinates
         $dLat = $lat2 - $lat1;
         $dLon = $lon2 - $lon1;
 
-        // Earth radius in meters with high precision
-        $earthRadius = 6378137;
-
-        // Haversine formula
-        $a = sin($dLat / 2) * sin($dLat / 2) +
-            cos($lat1) * cos($lat2) *
-            sin($dLon / 2) * sin($dLon / 2);
-
-        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
-
-        return $earthRadius * $c; // Distance in meters
+        // Calculate distance in meters
+        return sqrt(pow($dLat * $earthRadius, 2) + pow(cos(($lat1 + $lat2) / 2) * $dLon * $earthRadius, 2));
     }
+
 
 }
