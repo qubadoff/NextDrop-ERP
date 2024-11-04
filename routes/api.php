@@ -11,7 +11,9 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::prefix('employee')->group(function () {
-        Route::get('/list', [EmployeeController::class, 'list']);
-        Route::post('/sendAttendance', [EmployeeController::class, 'sendAttendance']);
+        Route::prefix('attendance')->group(function () {
+            Route::get('/list', [EmployeeController::class, 'list']);
+            Route::post('/sendAttendance', [EmployeeController::class, 'sendAttendance']);
+        });
     })->middleware('auth:sanctum');
 });
