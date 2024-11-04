@@ -19,8 +19,6 @@ class EmployeeController extends Controller
 
     public function sendAttendance(Request $request): JsonResponse
     {
-
-        dd(Auth::guard('employee')->user());
         $request->validate([
             'employee_in' => 'nullable|date',
             'employee_out' => 'nullable|date',
@@ -33,8 +31,8 @@ class EmployeeController extends Controller
 
         try {
             EmployeeAttendance::create([
-                'employee_id' => Auth::user()->id,
-                'branch_id' => Auth::user()->branch_id,
+                'employee_id' => Auth::guard('employee')->user()->id,
+                'branch_id' => Auth::guard('employee')->user()->branch_id,
                 'employee_in' => $request->employee_in,
                 'employee_out' => $request->employee_out,
                 'location' => $request->location,
