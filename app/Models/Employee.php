@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use App\Employee\EmployeePenalTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Employee extends Model
+class Employee extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $table = 'employees';
 
@@ -18,6 +18,16 @@ class Employee extends Model
 
     protected $casts = [
         'docs' => 'array',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
     ];
 
     public function education(): HasMany

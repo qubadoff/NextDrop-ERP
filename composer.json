@@ -9,6 +9,7 @@
         "bezhansalleh/filament-shield": "^3.2",
         "filament/filament": "^3.2",
         "laravel/framework": "^11.9",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "psr/simple-cache": "^2.0",
         "simplesoftwareio/simple-qrcode": "^4.2",
