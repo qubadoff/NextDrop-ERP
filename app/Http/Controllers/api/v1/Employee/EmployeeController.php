@@ -39,8 +39,6 @@ class EmployeeController extends Controller
             $branchLongitude
         );
 
-        dd($distance);
-
         if ($distance > 200) {
             return response()->json(['message' => 'Filila yaxin deyilsen !'], 422);
         }
@@ -79,7 +77,7 @@ class EmployeeController extends Controller
      * @param float $lon2 Longitude of the second location
      * @return float Distance in meters
      */
-    private function calculateDistance($lat1, $lon1, $lat2, $lon2): float
+    private function calculateDistance(float $lat1, float $lon1, float $lat2, float $lon2): float
     {
         $a = 6378137.0; // Semi-major axis of the Earth (meters)
         $f = 1 / 298.257223563; // Flattening
@@ -134,7 +132,4 @@ class EmployeeController extends Controller
 
         return $distance; // Distance in meters
     }
-
-
-
 }
