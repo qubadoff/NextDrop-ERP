@@ -21,6 +21,10 @@ class AuthController extends Controller
 
         $employee = Auth::guard('employee')->user();
 
+        if (!Auth::guard('employee')->attempt($request->only('email', 'password'))) {
+            return response()->json(['message' => 'Invalid login details'], 401);
+        }
+
         $token = $employee->createToken('CustomerLoginToken')->plainTextToken;
 
         $expires_in = config('sanctum.expiration');
