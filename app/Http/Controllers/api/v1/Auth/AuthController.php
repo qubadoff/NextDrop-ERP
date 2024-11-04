@@ -21,17 +21,14 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        // Manually authenticate since 'employee' guard uses 'token' driver
         $employee = Employee::where('email', $request->email)->first();
 
         if (!$employee || !Hash::check($request->password, $employee->password)) {
             return response()->json(['message' => 'Invalid login details'], 401);
         }
 
-        // Create a token using the 'employee' guard
         $token = $employee->createToken('EmployeeLoginToken')->plainTextToken;
 
-        // Set token expiration
         $expires_in = config('sanctum.expiration');
 
         DB::table('personal_access_tokens')
