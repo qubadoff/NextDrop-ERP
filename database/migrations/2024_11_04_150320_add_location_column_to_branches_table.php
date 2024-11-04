@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('branches', function (Blueprint $table) {
-            $table->string('location')->nullable()->after('employee_count');
-            $table->string('latitude')->nullable();
+            $table->string('latitude')->nullable()->after('employee_count');
             $table->string('longitude')->nullable();
         });
     }
