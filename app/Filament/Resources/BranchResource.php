@@ -44,6 +44,11 @@ class BranchResource extends Resource
                         '200' => '100-200',
                         '500' => '200-500',
                     ])->required()->label('İşçi sayı'),
+                ]),
+                Section::make([
+                    TextInput::make('location')->label('Ünvan'),
+                    TextInput::make('latitude')->label('Kordinat 1 (lat)'),
+                    TextInput::make('longitude')->label('Kordinat 2 (lng)'),
                 ])
             ]);
     }
