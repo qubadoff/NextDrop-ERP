@@ -19,7 +19,6 @@ class EmployeeController extends Controller
 
     public function sendAttendance(Request $request): JsonResponse
     {
-        dd($request->all());
         $request->validate([
             'employee_in' => 'nullable|date',
             'employee_out' => 'nullable|date',
@@ -27,6 +26,8 @@ class EmployeeController extends Controller
             'latitude' => 'required',
             'longitude' => 'required',
         ]);
+
+        dd(Auth::user()->id);
 
         DB::beginTransaction();
 
