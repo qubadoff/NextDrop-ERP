@@ -14,7 +14,7 @@ class EmployeeController extends Controller
 {
     public function list(): JsonResponse
     {
-        return response()->json(EmployeeAttendance::where('employee_id', Auth::guard('employee')->user()->id)->get());
+        return response()->json(EmployeeAttendance::where('employee_id', Auth::guard('employee')->user()->id)->orderBy('id', 'desc')->get());
     }
 
     public function sendAttendance(Request $request): JsonResponse
