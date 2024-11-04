@@ -41,7 +41,7 @@ return [
             'provider' => 'users',
         ],
         'employee' => [
-            'driver' => 'token',
+            'driver' => 'sanctum',
             'provider' => 'employees',
         ],
     ],
