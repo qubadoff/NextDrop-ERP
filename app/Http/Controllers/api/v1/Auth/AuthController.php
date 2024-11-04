@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\api\v1\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -19,14 +21,17 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        $employee = Auth::guard('employee')->user();
+        // Manually authenticate since 'employee' guard uses 'token' driver
+        $employee = Employee::where('email', $request->email)->first();
 
-        if (!Auth::guard('employee')->attempt($request->only('email', 'password'))) {
+        if (!$employee || !Hash::check($request->password, $employee->password)) {
             return response()->json(['message' => 'Invalid login details'], 401);
         }
 
-        $token = $employee->createToken('CustomerLoginToken')->plainTextToken;
+        // Create a token using the 'employee' guard
+        $token = $employee->createToken('EmployeeLoginToken')->plainTextToken;
 
+        // Set token expiration
         $expires_in = config('sanctum.expiration');
 
         DB::table('personal_access_tokens')
