@@ -19,6 +19,8 @@ class EmployeeController extends Controller
 
     public function sendAttendance(Request $request): JsonResponse
     {
+
+        dd($request->bearerToken());
         $request->validate([
             'employee_in' => 'nullable|date',
             'employee_out' => 'nullable|date',
