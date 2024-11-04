@@ -17,7 +17,7 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (!auth()->attempt($request->only('email', 'password'))) {
+        if (!auth()->guard('employee')->attempt($request->only('email', 'password'))) {
             return response()->json([
                 'message' => 'Invalid login details'
             ], 401);
