@@ -15,8 +15,32 @@ class EmployeeController extends Controller
 {
     public function list(): JsonResponse
     {
-        return response()->json(EmployeeAttendance::where('employee_id', Auth::guard('employee')->user()->id)->orderBy('id', 'desc')->get());
+        $employeeId = Auth::guard('employee')->user()->id;
+
+        $attendanceData = EmployeeAttendance::where('employee_id', $employeeId)
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->groupBy(function ($attendance) {
+                return $attendance->created_at->format('Y-m-d');
+            });
+
+        $formattedData = $attendanceData->map(function ($attendances, $date) {
+            return [
+                'date' => $date,
+                'attendances' => $attendances->map(function ($attendance) {
+                    return [
+                        'employee_in' => $attendance->employee_in,
+                        'qr_code' => $attendance->qr_code,
+                        'latitude' => $attendance->latitude,
+                        'longitude' => $attendance->longitude,
+                    ];
+                }),
+            ];
+        });
+
+        return response()->json($formattedData->values());
     }
+
 
     public function sendAttendance(Request $request): JsonResponse
     {
