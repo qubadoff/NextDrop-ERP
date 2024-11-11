@@ -25,7 +25,7 @@ class BranchResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
-    protected static ?string $navigationIcon = 'heroicon-o-globe';
+    protected static ?string $navigationIcon = 'heroicon-globe';
 
     public static function form(Form $form): Form
     {
