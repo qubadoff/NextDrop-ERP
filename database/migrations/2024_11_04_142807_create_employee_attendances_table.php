@@ -16,8 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('employee_id');
             $table->unsignedBigInteger('branch_id');
             $table->dateTime('employee_in')->nullable();
-            $table->dateTime('employee_out')->nullable();
-            $table->text('location');
+            $table->text('qrCode');
             $table->string('latitude');
             $table->string('longitude');
             $table->timestamps();

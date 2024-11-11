@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\v1\Employee;
 
 use App\Http\Controllers\Controller;
 use App\Models\EmployeeAttendance;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -20,9 +21,7 @@ class EmployeeController extends Controller
     public function sendAttendance(Request $request): JsonResponse
     {
         $request->validate([
-            'employee_in' => 'nullable|date',
-            'employee_out' => 'nullable|date',
-            'location' => 'required',
+            'qrCode' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',
         ]);
@@ -49,9 +48,8 @@ class EmployeeController extends Controller
             EmployeeAttendance::create([
                 'employee_id' => Auth::guard('employee')->user()->id,
                 'branch_id' => Auth::guard('employee')->user()->branch_id,
-                'employee_in' => $request->employee_in,
-                'employee_out' => $request->employee_out,
-                'location' => $request->location,
+                'employee_in' => Carbon::now(),
+                'qr_code' => $request->qrCode,
                 'latitude' => $request->latitude,
                 'longitude' => $request->longitude,
             ]);
