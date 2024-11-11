@@ -30,9 +30,6 @@ class EmployeeController extends Controller
                 'attendances' => $attendances->map(function ($attendance) {
                     return [
                         'employee_in' => $attendance->employee_in,
-                        'qr_code' => $attendance->qr_code,
-                        'latitude' => $attendance->latitude,
-                        'longitude' => $attendance->longitude,
                     ];
                 }),
             ];
