@@ -57,7 +57,7 @@ class EmployeeController extends Controller
             DB::commit();
 
             return response()->json([
-                'message' => 'Attendance sent successfully',
+                'message' => 'Uğurla göndərildi !',
             ]);
         } catch (Exception $e) {
             DB::rollBack();
