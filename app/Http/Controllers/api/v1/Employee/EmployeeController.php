@@ -19,7 +19,7 @@ class EmployeeController extends Controller
 
         $attendanceData = EmployeeAttendance::where('employee_id', $employeeId)
             ->orderBy('created_at', 'desc')
-            ->get()
+            ->paginate(15)
             ->groupBy(function ($attendance) {
                 return $attendance->created_at->format('Y-m-d');
             });
