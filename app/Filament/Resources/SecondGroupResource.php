@@ -23,7 +23,7 @@ class SecondGroupResource extends Resource
 
     protected static ?string $label = 'Alt qrup';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 3;
 
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
