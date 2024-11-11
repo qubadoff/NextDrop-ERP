@@ -29,7 +29,7 @@ class EmployeePenalResource extends Resource
 
     protected static ?int $navigationSort = 7;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-pencil-alt';
 
     public static function form(Form $form): Form
     {
