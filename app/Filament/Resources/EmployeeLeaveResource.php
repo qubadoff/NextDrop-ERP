@@ -27,7 +27,7 @@ class EmployeeLeaveResource extends Resource
 
     protected static ?int $navigationSort = 6;
 
-    protected static ?string $navigationIcon = 'heroicon-0-clock';
+    protected static ?string $navigationIcon = 'heroicon-o-clock';
 
     public static function form(Form $form): Form
     {
