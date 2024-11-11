@@ -28,6 +28,10 @@ class EmployeeController extends Controller
 
         $employee = Auth::guard('employee')->user();
 
+        if ($request->qrCode !== $employee->branch->qr_code) {
+            return response()->json(['message' => 'QR kodu düz deyil !'], 422);
+        }
+
         $branchLatitude = $employee->branch->latitude;
         $branchLongitude = $employee->branch->longitude;
 
@@ -103,7 +107,7 @@ class EmployeeController extends Controller
             $sinSigma = sqrt(($cosU2 * $sinLambda) * ($cosU2 * $sinLambda) +
                 ($cosU1 * $sinU2 - $sinU1 * $cosU2 * $cosLambda) * ($cosU1 * $sinU2 - $sinU1 * $cosU2 * $cosLambda));
             if ($sinSigma == 0) {
-                return 0; // Co-incident points
+                return 0;
             }
             $cosSigma = $sinU1 * $sinU2 + $cosU1 * $cosU2 * $cosLambda;
             $sigma = atan2($sinSigma, $cosSigma);
@@ -117,7 +121,7 @@ class EmployeeController extends Controller
         }
 
         if ($iterLimit == 0) {
-            return 0; // Formula failed to converge
+            return 0;
         }
 
         $uSquared = $cos2Alpha * ($a * $a - $b * $b) / ($b * $b);
