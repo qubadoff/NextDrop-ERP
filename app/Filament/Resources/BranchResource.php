@@ -23,7 +23,7 @@ class BranchResource extends Resource
 
     protected static ?string $label = 'Filial';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $navigationIcon = 'heroicon-o-globe-alt';
 
