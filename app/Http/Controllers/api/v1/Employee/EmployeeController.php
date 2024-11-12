@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\v1\Employee;
 
 use App\Http\Controllers\Controller;
 use App\Models\EmployeeAttendance;
+use App\Models\EmployeePenal;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -154,5 +155,12 @@ class EmployeeController extends Controller
         $distance = $b * $A * ($sigma - $deltaSigma);
 
         return $distance; // Distance in meters
+    }
+
+    public function penalList(): JsonResponse
+    {
+        $penal = EmployeePenal::where('employee_id', Auth::guard('employee')->user()->id)->orderBy('created_at', 'desc')->get();
+
+        return response()->json($penal);
     }
 }
