@@ -19,12 +19,13 @@ class EmployeeController extends Controller
     {
         $employeeId = Auth::guard('employee')->user()->id;
 
-        $attendanceData = EmployeeAttendance::where('employee_id', $employeeId)
+        $attendancePaginated = EmployeeAttendance::where('employee_id', $employeeId)
             ->orderBy('created_at', 'desc')
-            ->paginate(15)
-            ->groupBy(function ($attendance) {
-                return $attendance->created_at->format('Y-m-d');
-            });
+            ->paginate(15);
+
+        $attendanceData = collect($attendancePaginated->items())->groupBy(function ($attendance) {
+            return $attendance->created_at->format('Y-m-d');
+        });
 
         $formattedData = $attendanceData->map(function ($attendances, $date) {
             return [
@@ -37,7 +38,15 @@ class EmployeeController extends Controller
             ];
         });
 
-        return response()->json($formattedData->values());
+        return response()->json([
+            'data' => $formattedData->values(),
+            'pagination' => [
+                'total' => $attendancePaginated->total(),
+                'current_page' => $attendancePaginated->currentPage(),
+                'last_page' => $attendancePaginated->lastPage(),
+                'per_page' => $attendancePaginated->perPage(),
+            ],
+        ]);
     }
 
 
