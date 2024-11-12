@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\api\v1\Employee;
 
 use App\Employee\EmployeeAvansStatus;
+use App\Employee\EmployeeLeaveStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\EmployeeAttendance;
 use App\Models\EmployeeAvans;
 use App\Models\EmployeeAward;
+use App\Models\EmployeeLeave;
 use App\Models\EmployeePenal;
 use Carbon\Carbon;
 use Exception;
@@ -283,6 +285,67 @@ class EmployeeController extends Controller
                 'current_page' => $avans->currentPage(),
                 'last_page' => $avans->lastPage(),
                 'per_page' => $avans->perPage(),
+            ],
+        ]);
+    }
+
+    public function leaveSend(Request $request): JsonResponse
+    {
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+            'reason' => 'required',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+
+            EmployeeLeave::create([
+                'employee_id' => Auth::guard('employee')->user()->id,
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
+                'reason' => $request->reason,
+                'status' => EmployeeLeaveStatusEnum::PENDING->value
+            ]);
+
+            DB::commit();
+
+            return response()->json([
+                'message' => 'İcazə istəyi üğurla göndərildi !'
+            ]);
+
+
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return response()->json($e->getMessage());
+        }
+    }
+
+    public function leaveList(): JsonResponse
+    {
+        $leave = EmployeeLeave::where('employee_id', Auth::guard('employee')->user()->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(15);
+
+        $leaveData = collect($leave->items())->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'start_date' => $item->start_date,
+                'end_date' => $item->end_date,
+                'reason' => $item->reason,
+                'status' => $item->status->getLabel(),
+            ];
+        });
+
+        return response()->json([
+            'data' => $leaveData,
+            'pagination' => [
+                'total' => $leave->total(),
+                'current_page' => $leave->currentPage(),
+                'last_page' => $leave->lastPage(),
+                'per_page' => $leave->perPage(),
             ],
         ]);
     }

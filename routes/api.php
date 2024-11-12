@@ -25,5 +25,9 @@ Route::prefix('v1')->group(function () {
             Route::get('/avansList', [EmployeeController::class, 'avansList']);
             Route::post('/sendAvans', [EmployeeController::class, 'sendAvans']);
         });
+        Route::prefix('leave')->group(function () {
+            Route::get('/leaveList', [EmployeeController::class, 'leaveList']);
+            Route::post('/leaveSend', [EmployeeController::class, 'leaveSend']);
+        });
     })->middleware('auth:sanctum');
 });
