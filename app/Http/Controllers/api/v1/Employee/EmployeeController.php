@@ -164,7 +164,9 @@ class EmployeeController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(1);
 
-        $penalData = $penal->map(function ($item) {
+        $penalData = $penal->items(); // Paginate sonucu içindeki verileri alıyoruz
+
+        $penalData = collect($penalData)->map(function ($item) {
             return [
                 'id' => $item->id,
                 'date' => $item->date,
@@ -178,6 +180,12 @@ class EmployeeController extends Controller
 
         return response()->json([
             'data' => $penalData,
+            'pagination' => [
+                'total' => $penal->total(),
+                'current_page' => $penal->currentPage(),
+                'last_page' => $penal->lastPage(),
+                'per_page' => $penal->perPage(),
+            ],
         ]);
     }
 
