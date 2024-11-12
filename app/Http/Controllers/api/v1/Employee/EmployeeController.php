@@ -169,7 +169,7 @@ class EmployeeController extends Controller
                 'date' => $item->date,
                 'penal_amount' => $item->penal_amount,
                 'reason' => $item->reason,
-                'penal_type' => $item->penal_type->getLable(),
+                'penal_type' => $item->penal_type->getLabel(),
             ];
         });
 
