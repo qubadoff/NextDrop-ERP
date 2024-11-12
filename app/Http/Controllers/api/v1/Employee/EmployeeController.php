@@ -161,7 +161,7 @@ class EmployeeController extends Controller
     {
         $penal = EmployeePenal::where('employee_id', Auth::guard('employee')->user()->id)
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(15);
 
         $penalData = $penal->map(function ($item) {
             return [
