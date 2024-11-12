@@ -162,7 +162,7 @@ class EmployeeController extends Controller
     {
         $penal = EmployeePenal::where('employee_id', Auth::guard('employee')->user()->id)
             ->orderBy('created_at', 'desc')
-            ->paginate(1);
+            ->paginate(20);
 
         $penalData = $penal->items(); // Paginate sonucu içindeki verileri alıyoruz
 
