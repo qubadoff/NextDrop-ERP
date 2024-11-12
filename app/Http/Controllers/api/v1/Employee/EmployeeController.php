@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\v1\Employee;
 
 use App\Http\Controllers\Controller;
 use App\Models\EmployeeAttendance;
+use App\Models\EmployeeAward;
 use App\Models\EmployeePenal;
 use Carbon\Carbon;
 use Exception;
@@ -176,6 +177,28 @@ class EmployeeController extends Controller
 
         return response()->json([
             'data' => $penalData,
+        ]);
+    }
+
+    public function awardList(): JsonResponse
+    {
+        $award = EmployeeAward::where('employee_id', Auth::guard('employee')->user()->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(15);
+
+        $awardData = $award->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'date' => $item->date,
+                'award_amount' => $item->award_amount,
+                'reason' => $item->reason,
+                'award_type' => $item->award_type->getLabel(),
+                'status' => $item->status->getLabel(),
+            ];
+        });
+
+        return response()->json([
+            'data' => $awardData,
         ]);
     }
 }

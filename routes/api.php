@@ -18,5 +18,8 @@ Route::prefix('v1')->group(function () {
         Route::prefix('penal')->group(function () {
             Route::get('/penalList', [EmployeeController::class, 'penalList']);
         });
+        Route::prefix('award')->group(function () {
+            Route::get('/awardList', [EmployeeController::class, 'awardList']);
+        });
     })->middleware('auth:sanctum');
 });
