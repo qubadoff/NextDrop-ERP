@@ -270,7 +270,7 @@ class EmployeeController extends Controller
             return [
                 'id' => $item->id,
                 'date' => $item->date,
-                'amount' => $item->award_amount,
+                'amount' => $item->amount,
                 'reason' => $item->reason,
                 'status' => $item->status->getLabel(),
             ];
