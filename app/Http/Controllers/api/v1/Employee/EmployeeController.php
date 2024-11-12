@@ -167,6 +167,9 @@ class EmployeeController extends Controller
             return [
                 'id' => $item->id,
                 'date' => $item->date,
+                'penal_amount' => $item->penal_amount,
+                'reason' => $item->reason,
+                'penal_type' => $item->penal_type->getLable(),
             ];
         });
 
