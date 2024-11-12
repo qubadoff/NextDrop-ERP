@@ -21,5 +21,9 @@ Route::prefix('v1')->group(function () {
         Route::prefix('award')->group(function () {
             Route::get('/awardList', [EmployeeController::class, 'awardList']);
         });
+        Route::prefix('avans')->group(function () {
+            Route::get('/avansList', [EmployeeController::class, 'avansList']);
+            Route::post('/sendAvans', [EmployeeController::class, 'sendAvans']);
+        });
     })->middleware('auth:sanctum');
 });

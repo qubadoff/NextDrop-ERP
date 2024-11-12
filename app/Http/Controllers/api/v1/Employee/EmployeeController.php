@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\api\v1\Employee;
 
+use App\Employee\EmployeeAvansStatus;
 use App\Http\Controllers\Controller;
 use App\Models\EmployeeAttendance;
+use App\Models\EmployeeAvans;
 use App\Models\EmployeeAward;
 use App\Models\EmployeePenal;
 use Carbon\Carbon;
@@ -173,7 +175,7 @@ class EmployeeController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(20);
 
-        $penalData = $penal->items(); // Paginate sonucu içindeki verileri alıyoruz
+        $penalData = $penal->items();
 
         $penalData = collect($penalData)->map(function ($item) {
             return [
@@ -223,6 +225,64 @@ class EmployeeController extends Controller
                 'current_page' => $award->currentPage(),
                 'last_page' => $award->lastPage(),
                 'per_page' => $award->perPage(),
+            ],
+        ]);
+    }
+
+    public function sendAvans(Request $request): JsonResponse
+    {
+        $request->validate([
+            'amount' => 'required|integer',
+            'reason' => 'required',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            EmployeeAvans::create([
+                'employee_id' => Auth::guard('employee')->user()->id,
+                'date' => Carbon::now(),
+                'amount' => $request->amount,
+                'reason' => $request->reason,
+                'status' => EmployeeAvansStatus::PENDING->value,
+            ]);
+
+            DB::commit();
+
+            return response()->json([
+                'message' => 'Avans istəyi uğurla göndərildi !'
+            ]);
+        } catch (Exception $e)
+        {
+            DB::rollBack();
+
+            return response()->json($e->getMessage());
+        }
+    }
+
+    public function avansList(): JsonResponse
+    {
+        $avans = EmployeeAvans::where('employee_id', Auth::guard('employee')->user()->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(15);
+
+        $avansData = collect($avans->items())->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'date' => $item->date,
+                'amount' => $item->award_amount,
+                'reason' => $item->reason,
+                'status' => $item->status->getLabel(),
+            ];
+        });
+
+        return response()->json([
+            'data' => $avansData,
+            'pagination' => [
+                'total' => $avans->total(),
+                'current_page' => $avans->currentPage(),
+                'last_page' => $avans->lastPage(),
+                'per_page' => $avans->perPage(),
             ],
         ]);
     }
