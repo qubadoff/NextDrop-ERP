@@ -23,20 +23,17 @@ class AuthController extends Controller
         $employee = Employee::where('email', $request->email)->first();
 
         if (!$employee || !Hash::check($request->password, $employee->password)) {
-            return response()->json(['message' => 'Invalid login details'], 401);
+            return response()->json(['message' => 'Email və ya şifrə yanlışdır !'], 422);
         }
 
-        // Token oluştur
         $token = $employee->createToken('EmployeeLoginToken')->plainTextToken;
 
-        // Tokenin süresini ayarla
         DB::table('personal_access_tokens')
             ->where('tokenable_id', $employee->id)
             ->update([
                 'expires_at' => now()->addMinutes(config('sanctum.expiration')),
             ]);
 
-        // Kullanıcı bilgilerini hazırla
         $employeeData = [
             'name' => $employee->name,
             'surname' => $employee->surname,
@@ -49,5 +46,4 @@ class AuthController extends Controller
             'employee' => $employeeData,
         ]);
     }
-
 }
