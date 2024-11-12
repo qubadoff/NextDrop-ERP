@@ -168,6 +168,7 @@ class EmployeeController extends Controller
             return [
                 'id' => $item->id,
                 'date' => $item->date,
+                'who_added' => $item->who_added,
                 'penal_amount' => $item->penal_amount,
                 'reason' => $item->reason,
                 'penal_type' => $item->penal_type->getLabel(),
@@ -190,6 +191,7 @@ class EmployeeController extends Controller
             return [
                 'id' => $item->id,
                 'date' => $item->date,
+                'who_added' => $item->who_added,
                 'award_amount' => $item->award_amount,
                 'reason' => $item->reason,
                 'award_type' => $item->award_type->getLabel(),
