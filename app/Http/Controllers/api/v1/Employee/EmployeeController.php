@@ -159,8 +159,19 @@ class EmployeeController extends Controller
 
     public function penalList(): JsonResponse
     {
-        $penal = EmployeePenal::where('employee_id', Auth::guard('employee')->user()->id)->orderBy('created_at', 'desc')->get();
+        $penal = EmployeePenal::where('employee_id', Auth::guard('employee')->user()->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        return response()->json($penal);
+        $penalData = $penal->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'date' => $item->date,
+            ];
+        });
+
+        return response()->json([
+            'data' => $penalData,
+        ]);
     }
 }
