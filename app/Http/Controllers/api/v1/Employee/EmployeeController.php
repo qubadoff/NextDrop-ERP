@@ -195,7 +195,7 @@ class EmployeeController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(15);
 
-        $awardData = $award->map(function ($item) {
+        $awardData = collect($award->items())->map(function ($item) {
             return [
                 'id' => $item->id,
                 'date' => $item->date,
@@ -209,6 +209,13 @@ class EmployeeController extends Controller
 
         return response()->json([
             'data' => $awardData,
+            'pagination' => [
+                'total' => $award->total(),
+                'current_page' => $award->currentPage(),
+                'last_page' => $award->lastPage(),
+                'per_page' => $award->perPage(),
+            ],
         ]);
     }
+
 }
