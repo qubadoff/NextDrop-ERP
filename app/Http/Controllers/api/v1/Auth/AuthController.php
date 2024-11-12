@@ -21,6 +21,12 @@ class AuthController extends Controller
         ]);
 
         $employee = Employee::where('email', $request->email)->first();
+        $employee = [
+            'name' => $employee->name,
+            'surname' => $employee->surname,
+            'email' => $employee->email,
+            'photo' => url('/default.png'),
+        ];
 
         if (!$employee || !Hash::check($request->password, $employee->password)) {
             return response()->json(['message' => 'Invalid login details'], 401);

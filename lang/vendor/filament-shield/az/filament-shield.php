@@ -31,11 +31,11 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'nav.group' => 'Filament Kalkan',
-    'nav.role.label' => 'Roller',
+    'nav.group' => 'İcazələr',
+    'nav.role.label' => 'Rollar',
     'nav.role.icon' => 'heroicon-o-shield-check',
     'resource.label.role' => 'Rol',
-    'resource.label.roles' => 'Roller',
+    'resource.label.roles' => 'Rollar',
 
     /*
     |--------------------------------------------------------------------------
