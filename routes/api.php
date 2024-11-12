@@ -16,7 +16,7 @@ Route::prefix('v1')->group(function () {
             Route::post('/sendAttendance', [EmployeeController::class, 'sendAttendance']);
         });
         Route::prefix('penal')->group(function () {
-            Route::get('/list', [EmployeeController::class, 'penalList']);
+            Route::get('/penalList', [EmployeeController::class, 'penalList']);
         });
     })->middleware('auth:sanctum');
 });
