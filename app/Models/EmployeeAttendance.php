@@ -18,4 +18,9 @@ class EmployeeAttendance extends Model
     {
         return $this->belongsTo(Employee::class);
     }
+
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
+    }
 }
