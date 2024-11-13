@@ -33,6 +33,7 @@ class EmployeeAttendanceResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('employee.name')->label('İşçi')->searchable(),
+                Tables\Columns\TextColumn::make('employee.surname')->label('İşçi')->searchable(),
                 Tables\Columns\TextColumn::make('branch.name')->label('Filial')->searchable(),
                 Tables\Columns\TextColumn::make('employee.position.name')->label('Vəzifə')->searchable(),
                 Tables\Columns\TextColumn::make('employee_in')->label('Daxil olma vaxtı')->searchable(),
