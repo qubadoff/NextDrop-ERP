@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\EmployeeAttendanceResource\Pages;
 use App\Models\EmployeeAttendance;
+use Carbon\Carbon;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -38,6 +39,17 @@ class EmployeeAttendanceResource extends Resource
                 Tables\Columns\TextColumn::make('employee.position.name')->label('Vəzifə')->searchable(),
                 Tables\Columns\TextColumn::make('employee_in')->label('Giriş vaxtı')->searchable(),
                 Tables\Columns\TextColumn::make('employee_out')->label('Çıxış vaxtı')->searchable(),
+                Tables\Columns\TextColumn::make('duration')
+                    ->label('İşdə olduğu müddət')
+                    ->getStateUsing(function ($record) {
+                        if ($record->employee_in && $record->employee_out) {
+                            $in = Carbon::parse($record->employee_in);
+                            $out = Carbon::parse($record->employee_out);
+                            return $in->diffInHours($out) . ' saat';
+                        }
+                        return null;
+                    }),
+
             ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
