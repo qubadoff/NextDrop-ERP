@@ -65,7 +65,7 @@ class EmployeeController extends Controller
         $employee = Auth::guard('employee')->user();
 
         if ($request->qrCode !== $employee->branch->qr_code) {
-            return response()->json(['message' => 'QR kodu düz deyil !'], 422);
+            return response()->json(['message' => 'QR kodu düz deyil!'], 422);
         }
 
         $branchLatitude = $employee->branch->latitude;
@@ -79,25 +79,40 @@ class EmployeeController extends Controller
         );
 
         if ($distance > 50) {
-            return response()->json(['message' => 'Filila yaxin deyilsen !'], 422);
+            return response()->json(['message' => 'Filila yaxin deyilsen!'], 422);
         }
 
         DB::beginTransaction();
 
         try {
-            EmployeeAttendance::create([
-                'employee_id' => Auth::guard('employee')->user()->id,
-                'branch_id' => Auth::guard('employee')->user()->branch_id,
-                'employee_in' => Carbon::now(),
-                'qr_code' => $request->qrCode,
-                'latitude' => $request->latitude,
-                'longitude' => $request->longitude,
-            ]);
+            $today = Carbon::today();
+
+            $attendance = EmployeeAttendance::where('employee_id', $employee->id)
+                ->whereDate('employee_in', $today)
+                ->orderBy('employee_in', 'desc')
+                ->first();
+
+            if ($attendance && !$attendance->employee_out) {
+                // İlk giriş yapılmışsa çıkış olarak kaydet
+                $attendance->update([
+                    'employee_out' => Carbon::now(),
+                ]);
+            } else {
+                // Yeni giriş kaydı oluştur
+                EmployeeAttendance::create([
+                    'employee_id' => $employee->id,
+                    'branch_id' => $employee->branch_id,
+                    'employee_in' => Carbon::now(),
+                    'qr_code' => $request->qrCode,
+                    'latitude' => $request->latitude,
+                    'longitude' => $request->longitude,
+                ]);
+            }
 
             DB::commit();
 
             return response()->json([
-                'message' => 'Uğurla göndərildi !',
+                'message' => 'Uğurla göndərildi!',
             ]);
         } catch (Exception $e) {
             DB::rollBack();
