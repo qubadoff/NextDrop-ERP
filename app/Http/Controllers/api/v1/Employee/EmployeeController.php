@@ -97,7 +97,7 @@ class EmployeeController extends Controller
                 // Çıkış olarak kaydet ve süreyi hesapla
                 $employeeOut = Carbon::now();
                 $employeeIn = Carbon::parse($attendance->employee_in);
-                $duration = $employeeIn->diffInHours($employeeOut);
+                $duration = round($employeeIn->diffInHours($employeeOut));
 
                 $attendance->update([
                     'employee_out' => $employeeOut,
