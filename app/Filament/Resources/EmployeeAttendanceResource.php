@@ -56,6 +56,9 @@ class EmployeeAttendanceResource extends Resource
                     ->date(),
             ])
 
+            ->defaultSort('created_at', 'desc')
+
+
             ->filters([
                 Tables\Filters\SelectFilter::make('employee_id')
                     ->options(Employee::all()->pluck('name', 'id'))
@@ -75,7 +78,8 @@ class EmployeeAttendanceResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultGroup('created_at');
     }
 
     public static function getRelations(): array
