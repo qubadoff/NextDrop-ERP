@@ -36,7 +36,7 @@ class EmployeeAttendanceResource extends Resource
                 Tables\Columns\TextColumn::make('employee.surname')->label('Soyad')->searchable(),
                 Tables\Columns\TextColumn::make('branch.name')->label('Filial')->searchable(),
                 Tables\Columns\TextColumn::make('employee.position.name')->label('Vəzifə')->searchable(),
-                Tables\Columns\TextColumn::make('employee_in')->label('Daxil olma vaxtı')->searchable(),
+                Tables\Columns\TextColumn::make('employee_in')->label('Giriş vaxtı')->searchable(),
                 Tables\Columns\TextColumn::make('employee_out')->label('Çıxış vaxtı')->searchable(),
             ])->defaultSort('created_at', 'desc')
             ->filters([
