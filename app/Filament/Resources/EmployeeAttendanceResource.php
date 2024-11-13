@@ -3,6 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\EmployeeAttendanceResource\Pages;
+use App\Models\Branch;
+use App\Models\Employee;
 use App\Models\EmployeeAttendance;
 use Carbon\Carbon;
 use Filament\Forms\Form;
@@ -48,7 +50,16 @@ class EmployeeAttendanceResource extends Resource
 
             ])->defaultSort('created_at', 'desc')
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('employee_id')
+                    ->options(Employee::all()->pluck('name', 'id'))
+                    ->multiple()
+                    ->searchable()
+                    ->label('İşçi'),
+                Tables\Filters\SelectFilter::make('branch_id')
+                    ->options(Branch::all()->pluck('name', 'id'))
+                    ->multiple()
+                    ->searchable()
+                    ->label('Filial'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
