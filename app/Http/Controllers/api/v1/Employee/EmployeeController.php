@@ -37,6 +37,7 @@ class EmployeeController extends Controller
                 'attendances' => $attendances->map(function ($attendance) {
                     return [
                         'employee_in' => $attendance->employee_in,
+                        'employee_out' => $attendance->employee_out,
                     ];
                 }),
             ];
