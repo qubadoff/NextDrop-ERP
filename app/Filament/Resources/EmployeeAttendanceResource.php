@@ -39,8 +39,8 @@ class EmployeeAttendanceResource extends Resource
                 Tables\Columns\TextColumn::make('employee.surname')->label('Soyad')->searchable(),
                 Tables\Columns\TextColumn::make('branch.name')->label('Filial')->searchable(),
                 Tables\Columns\TextColumn::make('employee.position.name')->label('Vəzifə')->searchable(),
-                Tables\Columns\TextColumn::make('employee_in')->label('Giriş vaxtı')->searchable(),
-                Tables\Columns\TextColumn::make('employee_out')->label('Çıxış vaxtı')->searchable(),
+                Tables\Columns\TextColumn::make('employee_in')->label('Giriş vaxtı')->searchable()->time(),
+                Tables\Columns\TextColumn::make('employee_out')->label('Çıxış vaxtı')->searchable()->time(),
                 Tables\Columns\TextColumn::make('duration')
                     ->label('İşdə olduğu müddət')
                     ->sortable()
@@ -49,6 +49,13 @@ class EmployeeAttendanceResource extends Resource
                     ]),
 
             ])->defaultSort('created_at', 'desc')
+
+            ->groups([
+                Tables\Grouping\Group::make('created_at')
+                    ->label('Tarix')
+                    ->date(),
+            ])
+
             ->filters([
                 Tables\Filters\SelectFilter::make('employee_id')
                     ->options(Employee::all()->pluck('name', 'id'))
