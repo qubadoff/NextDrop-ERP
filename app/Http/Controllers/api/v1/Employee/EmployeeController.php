@@ -80,7 +80,7 @@ class EmployeeController extends Controller
         );
 
         if ($distance > 50) {
-            return response()->json(['message' => 'Filila yaxin deyilsen!'], 422);
+            return response()->json(['message' => 'Filiala yaxin deyilsən !'], 422);
         }
 
         DB::beginTransaction();
@@ -94,12 +94,16 @@ class EmployeeController extends Controller
                 ->first();
 
             if ($attendance && !$attendance->employee_out) {
-                // İlk giriş yapılmışsa çıkış olarak kaydet
+                $employeeOut = Carbon::now();
+                $duration = $attendance->employee_in
+                    ? $attendance->employee_in->diffInHours($employeeOut)
+                    : null;
+
                 $attendance->update([
-                    'employee_out' => Carbon::now(),
+                    'employee_out' => $employeeOut,
+                    'duration' => $duration,
                 ]);
             } else {
-                // Yeni giriş kaydı oluştur
                 EmployeeAttendance::create([
                     'employee_id' => $employee->id,
                     'branch_id' => $employee->branch_id,

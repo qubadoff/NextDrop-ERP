@@ -41,17 +41,10 @@ class EmployeeAttendanceResource extends Resource
                 Tables\Columns\TextColumn::make('employee_out')->label('Çıxış vaxtı')->searchable(),
                 Tables\Columns\TextColumn::make('duration')
                     ->label('İşdə olduğu müddət')
+                    ->sortable()
                     ->summarize([
                         Tables\Columns\Summarizers\Sum::make(),
-                    ])
-                    ->getStateUsing(function ($record) {
-                        if ($record->employee_in && $record->employee_out) {
-                            $in = Carbon::parse($record->employee_in);
-                            $out = Carbon::parse($record->employee_out);
-                            return $in->diffInHours($out) . ' saat';
-                        }
-                        return null;
-                    }),
+                    ]),
 
             ])->defaultSort('created_at', 'desc')
             ->filters([
