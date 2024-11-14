@@ -25,7 +25,7 @@ class EmployeeController extends Controller
 
         $attendancePaginated = EmployeeAttendance::where('employee_id', $employeeId)
             ->orderBy('created_at', 'desc')
-            ->paginate(1);
+            ->paginate(20);
 
         $attendanceData = collect($attendancePaginated->items())->groupBy(function ($attendance) {
             return $attendance->created_at->format('Y-m-d');
