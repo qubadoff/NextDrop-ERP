@@ -35,10 +35,7 @@ class EmployeeAttendanceResource extends Resource
                     Select::make('employee_id')->label('Əməkdaş')->options(Employee::all()->pluck('name', 'id'))->required(),
                     DateTimePicker::make('employee_in')->label('Giriş vaxtı')->required(),
                     DateTimePicker::make('employee_out')->label('Çıxış vaxtı')->required(),
-                    TextInput::make('duration')->label('Müddət')->disabled(),
-                    TextInput::make('latitude')->disabled(),
-                    TextInput::make('longitude')->disabled(),
-                ])
+                ])->columns()
             ]);
     }
 
