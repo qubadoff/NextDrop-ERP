@@ -7,6 +7,10 @@ use App\Models\Branch;
 use App\Models\Employee;
 use App\Models\EmployeeAttendance;
 use Carbon\Carbon;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -26,7 +30,15 @@ class EmployeeAttendanceResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Section::make([
+                    Select::make('branch_id')->label('Filial')->options(Branch::all()->pluck('name', 'id'))->required(),
+                    Select::make('employee_id')->label('Əməkdaş')->options(Employee::all()->pluck('name', 'id'))->required(),
+                    DateTimePicker::make('employee_in')->label('Giriş vaxtı')->required(),
+                    DateTimePicker::make('employee_out')->label('Çıxış vaxtı')->required(),
+                    TextInput::make('duration')->label('Müddət')->disabled(),
+                    TextInput::make('latitude')->disabled(),
+                    TextInput::make('longitude')->disabled(),
+                ])
             ]);
     }
 
@@ -58,7 +70,6 @@ class EmployeeAttendanceResource extends Resource
             ])
 
             ->defaultSort('created_at', 'desc')
-
 
             ->filters([
                 Tables\Filters\SelectFilter::make('employee_id')
@@ -94,8 +105,8 @@ class EmployeeAttendanceResource extends Resource
     {
         return [
             'index' => Pages\ListEmployeeAttendances::route('/'),
-            'create' => Pages\CreateEmployeeAttendance::route('/create'),
-            'edit' => Pages\EditEmployeeAttendance::route('/{record}/edit'),
+            //'create' => Pages\CreateEmployeeAttendance::route('/create'),
+            //'edit' => Pages\EditEmployeeAttendance::route('/{record}/edit'),
         ];
     }
 }
