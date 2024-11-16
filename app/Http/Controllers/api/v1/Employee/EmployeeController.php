@@ -95,7 +95,7 @@ class EmployeeController extends Controller
             if ($attendance && !$attendance->employee_out) {
                 $employeeOut = Carbon::now();
                 $employeeIn = Carbon::parse($attendance->employee_in);
-                $duration = $employeeIn->diffInMinutes($employeeOut);
+                $duration = round($employeeIn->diffInMinutes($employeeOut));
 
                 $attendance->update([
                     'employee_out' => $employeeOut,
