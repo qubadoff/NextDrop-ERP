@@ -54,7 +54,6 @@ class EmployeeController extends Controller
         ]);
     }
 
-
     public function sendAttendance(Request $request): JsonResponse
     {
         $request->validate([
@@ -94,17 +93,15 @@ class EmployeeController extends Controller
                 ->first();
 
             if ($attendance && !$attendance->employee_out) {
-                // Çıkış olarak kaydet ve süreyi hesapla
                 $employeeOut = Carbon::now();
                 $employeeIn = Carbon::parse($attendance->employee_in);
-                $duration = number_format($employeeIn->diffInMinutes($employeeOut) / 60, 2);
+                $duration = $employeeIn->diffInMinutes($employeeOut);
 
                 $attendance->update([
                     'employee_out' => $employeeOut,
                     'duration' => $duration,
                 ]);
             } else {
-                // Yeni giriş kaydı oluştur
                 EmployeeAttendance::create([
                     'employee_id' => $employee->id,
                     'branch_id' => $employee->branch_id,
