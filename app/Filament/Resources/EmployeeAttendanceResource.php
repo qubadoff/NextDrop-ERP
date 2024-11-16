@@ -52,11 +52,14 @@ class EmployeeAttendanceResource extends Resource
                 Tables\Columns\TextColumn::make('employee_in')->label('Giriş vaxtı')->searchable()->time('H:i'),
                 Tables\Columns\TextColumn::make('employee_out')->label('Çıxış vaxtı')->searchable()->time('H:i'),
                 Tables\Columns\TextColumn::make('duration')
-                    ->label('İşdə olduğu müddət')
+                    ->label('İşdə olduğu müddət (saat)')
                     ->sortable()
+                    ->formatStateUsing(fn ($state) => $state ? round($state / 60, 2) . ' saat' : '0 saat')
                     ->summarize([
-                        Tables\Columns\Summarizers\Sum::make(),
+                        Tables\Columns\Summarizers\Sum::make()
+                            ->formatStateUsing(fn ($state) => $state ? round($state / 60, 2) . ' saat' : '0 saat'),
                     ]),
+
 
             ])->defaultSort('created_at', 'desc')
 
