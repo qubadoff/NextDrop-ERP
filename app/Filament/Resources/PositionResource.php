@@ -75,7 +75,6 @@ class PositionResource extends Resource
                 Tables\Columns\TextColumn::make('position_code')->label('Vəzifə Kodu')->badge(),
                 Tables\Columns\TextColumn::make('state_unit')->label('Ştat vahidi')->badge(),
                 Tables\Columns\TextColumn::make('created_at')->label('Yaradıldı')->date(),
-                Tables\Columns\TextColumn::make('updated_at')->label('Yeniləndi')->date(),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('department_id')
