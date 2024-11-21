@@ -36,13 +36,15 @@ class PositionResource extends Resource
                     Select::make('department_id')
                         ->relationship('Department', 'name')
                         ->required()
+                        ->label('Departament'),
+                    TextInput::make('name')
+                        ->required()
                         ->validationMessages([
                             'required' => 'Vəzifə adı mütləqdir.',
                             'unique' => 'Bu vəzifə adı artıq mövcuddur.',
                         ])
                         ->unique('positions', 'name', ignoreRecord: true)
-                        ->label('Departament'),
-                    TextInput::make('name')->required()->label('Ad'),
+                        ->label('Ad'),
                     TextInput::make('position_code')
                         ->required()
                         ->label('Vəzifə kodu')
