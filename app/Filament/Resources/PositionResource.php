@@ -72,6 +72,8 @@ class PositionResource extends Resource
                     ->rowIndex(),
                 Tables\Columns\TextColumn::make('name')->searchable()->label('Ad'),
                 Tables\Columns\TextColumn::make('Department.name')->label('Departament')->badge(),
+                Tables\Columns\TextColumn::make('position_code')->label('Vəzifə Kodu')->badge(),
+                Tables\Columns\TextColumn::make('state_unit')->label('Ştat vahidi')->badge(),
                 Tables\Columns\TextColumn::make('created_at')->label('Yaradıldı')->date(),
                 Tables\Columns\TextColumn::make('updated_at')->label('Yeniləndi')->date(),
             ])
