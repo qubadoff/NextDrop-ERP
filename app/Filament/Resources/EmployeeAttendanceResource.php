@@ -91,6 +91,7 @@ class EmployeeAttendanceResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
+
             ->defaultGroup('created_at');
     }
 
