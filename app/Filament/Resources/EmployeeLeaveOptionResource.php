@@ -43,7 +43,7 @@ class EmployeeLeaveOptionResource extends Resource
                 Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('time')->label('Vaxt')->suffix(' saat'),
                 Tables\Columns\TextColumn::make('penal')->label('Məbləğ')->money(' AZN'),
-            ])
+            ])->columns(2)
             ->filters([
                 //
             ])
