@@ -58,8 +58,10 @@ class EmployeeLeaveResource extends Resource
                     ->label('№')
                     ->rowIndex(),
                 Tables\Columns\TextColumn::make('employee.name')->label('İşçi')->searchable(),
-                Tables\Columns\TextColumn::make('start_date')->label('Başlanış tarixi')->dateTime(),
-                Tables\Columns\TextColumn::make('end_date')->label('Bitiş tarixi')->dateTime(),
+                Tables\Columns\TextColumn::make('start_date')->label('Başlama tarixi')->date(),
+                Tables\Columns\TextColumn::make('start_date')->label('Başlama vaxtı')->time(),
+                Tables\Columns\TextColumn::make('end_date')->label('Bitiş tarixi')->date(),
+                Tables\Columns\TextColumn::make('end_date')->label('Bitiş vaxtı')->time(),
                 Tables\Columns\SelectColumn::make('status')->options([
                     EmployeeLeaveStatusEnum::PENDING->value => 'Gözləmədə',
                     EmployeeLeaveStatusEnum::APPROVED->value => 'Təsdiqləndi',
