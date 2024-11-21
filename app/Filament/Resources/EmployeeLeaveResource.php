@@ -69,7 +69,15 @@ class EmployeeLeaveResource extends Resource
                 Tables\Columns\TextColumn::make('updated_at')->label('Yeniləndi')->date(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        EmployeeLeaveStatusEnum::PENDING->value => 'Gözləmədə',
+                        EmployeeLeaveStatusEnum::APPROVED->value => 'Təsdiqləndi',
+                        EmployeeLeaveStatusEnum::REJECTED->value => 'Ləğv edildi',
+                    ])
+                    ->multiple()
+                    ->searchable()
+                    ->label('Status'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
