@@ -59,19 +59,19 @@ class EmployeeLeaveResource extends Resource
                     ->label('№')
                     ->rowIndex(),
                 Tables\Columns\TextColumn::make('employee.name')->label('İşçi')->searchable(),
-                Tables\Columns\TextColumn::make('start_date_formatted')
+                Tables\Columns\TextColumn::make('start_time')
                     ->label('Başlama tarixi')
                     ->date('d-m-Y'),
 
-                Tables\Columns\TextColumn::make('start_time')
+                Tables\Columns\TextColumn::make('start_date_formatted')
                     ->label('Başlama vaxtı')
                     ->getStateUsing(fn ($record) => Carbon::parse($record->start_date)->format('H:i')),
 
-                Tables\Columns\TextColumn::make('end_date_formatted')
+                Tables\Columns\TextColumn::make('end_time')
                     ->label('Bitiş tarixi')
                     ->date('d-m-Y'),
 
-                Tables\Columns\TextColumn::make('end_time')
+                Tables\Columns\TextColumn::make('end_date_formatted')
                     ->label('Bitiş vaxtı')
                     ->getStateUsing(fn ($record) => Carbon::parse($record->end_date)->format('H:i')),
 
