@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PositionResource\Pages;
 use App\Models\Branch;
+use App\Models\Department;
 use App\Models\Position;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -75,8 +76,8 @@ class PositionResource extends Resource
                 Tables\Columns\TextColumn::make('updated_at')->label('Yeniləndi')->date(),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('branch_id')
-                    ->options(Branch::all()->pluck('name', 'id'))
+                Tables\Filters\SelectFilter::make('department_id')
+                    ->options(Department::all()->pluck('name', 'id'))
                     ->multiple()
                     ->searchable()
                     ->label('Filial'),
