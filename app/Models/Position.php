@@ -23,9 +23,9 @@ class Position extends Model
         static::deleting(function (Position $position) {
             if (Employee::where('position_id', $position->id)->exists()) {
                 Notification::make()
-                    ->title('Silme Başarısız')
+                    ->title('Silinmə alınmadı !')
                     ->danger()
-                    ->body('Bu pozisyona bağlı çalışanlar olduğu üçün silinemez.')
+                    ->body('Bu vəzifə daxilində işçi var !')
                     ->send();
 
                 return false;
