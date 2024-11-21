@@ -66,11 +66,23 @@ class EmployeeAwardResource extends Resource
                 Tables\Columns\TextColumn::make('date')->label('Tarix')->date(),
                 Tables\Columns\TextColumn::make('award_type')->label('Ödəniş tipi')->badge(),
                 Tables\Columns\TextColumn::make('who_added')->label('Kim tərəfindən ?'),
-                Tables\Columns\TextColumn::make('status')->label('Status')->badge(),
+                Tables\Columns\SelectColumn::make('status')->options([
+                    EmployeeAwardStatus::PENDING->value => 'Gözləmədə',
+                    EmployeeAwardStatus::APPROVED->value => 'Qəbul edildi',
+                    EmployeeAwardStatus::REJECTED->value => 'Qəbul edilmədi',
+                ])->label('Status'),
                 Tables\Columns\TextColumn::make('created_at')->label('Əlavə olundu')->date(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        EmployeeAwardStatus::PENDING->value => 'Gözləmədə',
+                        EmployeeAwardStatus::APPROVED->value => 'Qəbul edildi',
+                        EmployeeAwardStatus::REJECTED->value => 'Qəbul edilmədi',
+                    ])
+                    ->multiple()
+                    ->searchable()
+                    ->label('Status'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
