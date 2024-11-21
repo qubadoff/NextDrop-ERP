@@ -80,7 +80,7 @@ class PositionResource extends Resource
                     ->options(Department::all()->pluck('name', 'id'))
                     ->multiple()
                     ->searchable()
-                    ->label('Filial'),
+                    ->label('Departament'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
