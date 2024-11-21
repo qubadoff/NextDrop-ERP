@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Exception;
+use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,7 +22,13 @@ class Position extends Model
 
         static::deleting(function (Position $position) {
             if (Employee::where('position_id', $position->id)->exists()) {
-                throw new Exception('Bu pozisyona bağlı çalışanlar olduğu üçün silinemez.');
+                Notification::make()
+                    ->title('Silme Başarısız')
+                    ->danger()
+                    ->body('Bu pozisyona bağlı çalışanlar olduğu üçün silinemez.')
+                    ->send();
+
+                return false;
             }
         });
     }
