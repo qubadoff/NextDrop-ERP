@@ -14,7 +14,10 @@ use App\Employee\MaritalStatusEnum;
 use App\Employee\MilitaryStatusEnum;
 use App\Employee\ProgramSpecialityLevelEnum;
 use App\Filament\Resources\EmployeeResource\Pages;
+use App\Models\Branch;
+use App\Models\Department;
 use App\Models\Employee;
+use App\Models\Position;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
@@ -249,7 +252,23 @@ class EmployeeResource extends Resource
                 Tables\Columns\TextColumn::make('start_work_date')->label('İşə başlama vaxtı')->date(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('branch_id')
+                    ->options(Branch::all()->pluck('name', 'id'))
+                    ->multiple()
+                    ->searchable()
+                    ->label('Filial'),
+
+                Tables\Filters\SelectFilter::make('department_id')
+                    ->options(Department::all()->pluck('name', 'id'))
+                    ->multiple()
+                    ->searchable()
+                    ->label('Departament'),
+
+                Tables\Filters\SelectFilter::make('position_id')
+                    ->options(Position::all()->pluck('name', 'id'))
+                    ->multiple()
+                    ->searchable()
+                    ->label('Vəzifə'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
