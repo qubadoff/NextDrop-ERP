@@ -28,13 +28,7 @@ class PositionObserver
      */
     public function deleted(Position $position): void
     {
-        $employees = Employee::where('position_id', $position->id)->get();
-
-        if ($employees->count() > 0) {
-            return;
-        } else {
-            $position->delete();
-        }
+        //
     }
 
     /**
