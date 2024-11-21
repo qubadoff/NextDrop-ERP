@@ -30,9 +30,9 @@ class EmployeeLeaveOptionResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make([
-                    Forms\Components\TextInput::make('time')->numeric()->required()->label('Vaxt')->suffix(' saat'),
+                    Forms\Components\TextInput::make('time')->numeric()->required()->label('Vaxt')->suffix(' dəq'),
                     Forms\Components\TextInput::make('penal')->numeric()->required()->label('Məbləğ')->suffix(' AZN'),
-                ])
+                ])->columns()
             ]);
     }
 
@@ -41,9 +41,9 @@ class EmployeeLeaveOptionResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable(),
-                Tables\Columns\TextColumn::make('time')->label('Vaxt')->suffix(' saat'),
+                Tables\Columns\TextColumn::make('time')->label('Vaxt')->suffix(' dəq'),
                 Tables\Columns\TextColumn::make('penal')->label('Məbləğ')->money(' AZN'),
-            ])->columns(2)
+            ])
             ->filters([
                 //
             ])
