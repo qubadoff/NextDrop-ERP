@@ -66,11 +66,23 @@ class EmployeePenalResource extends Resource
                 Tables\Columns\TextColumn::make('penal_type')->label('Tutulma tipi')->badge(),
                 Tables\Columns\TextColumn::make('who_added')->label('Kim tərəfindən ?'),
                 Tables\Columns\TextColumn::make('date')->label('Tarix')->date(),
-                Tables\Columns\TextColumn::make('status')->label('Status')->badge(),
+                Tables\Columns\SelectColumn::make('status')->options([
+                    EmployeePenalStatus::PENDING->value => 'Gözləmədə',
+                    EmployeePenalStatus::APPROVED->value => 'Qəbul edildi',
+                    EmployeePenalStatus::REJECTED->value => 'Qəbul edilmədi',
+                ])->label('Status'),
                 Tables\Columns\TextColumn::make('created_at')->label('Əlavə olundu')->date(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        EmployeePenalStatus::PENDING->value => 'Gözləmədə',
+                        EmployeePenalStatus::APPROVED->value => 'Qəbul edildi',
+                        EmployeePenalStatus::REJECTED->value => 'Qəbul edilmədi',
+                    ])
+                    ->multiple()
+                    ->searchable()
+                    ->label('Status'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

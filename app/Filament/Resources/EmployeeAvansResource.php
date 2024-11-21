@@ -58,11 +58,23 @@ class EmployeeAvansResource extends Resource
                 Tables\Columns\TextColumn::make('employee.name')->label('İşçi')->searchable(),
                 Tables\Columns\TextColumn::make('amount')->label('Avans məbləği')->money('azn'),
                 Tables\Columns\TextColumn::make('date')->label('Tarix')->date(),
-                Tables\Columns\TextColumn::make('status')->label('Status')->badge(),
+                Tables\Columns\SelectColumn::make('status')->options([
+                    EmployeeAvansStatus::PENDING->value => 'Gözləmədə',
+                    EmployeeAvansStatus::APPROVED->value => 'Qəbul edildi',
+                    EmployeeAvansStatus::REJECTED->value => 'Ləğv edildi',
+                ])->label('Status'),
                 Tables\Columns\TextColumn::make('created_at')->label('Əlavə olundu')->date(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        EmployeeAvansStatus::PENDING->value => 'Gözləmədə',
+                        EmployeeAvansStatus::APPROVED->value => 'Qəbul edildi',
+                        EmployeeAvansStatus::REJECTED->value => 'Ləğv edildi',
+                    ])
+                    ->multiple()
+                    ->searchable()
+                    ->label('Status'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
