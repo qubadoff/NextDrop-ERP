@@ -278,6 +278,15 @@ class EmployeeResource extends Resource
                     ->multiple()
                     ->searchable()
                     ->label('Vəzifə'),
+
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        EmployeeStatusEnum::ACTIVE->value => 'Aktiv',
+                        EmployeeStatusEnum::INACTIVE->value => 'Deaktiv',
+                    ])
+                    ->multiple()
+                    ->searchable()
+                    ->label('Status'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
