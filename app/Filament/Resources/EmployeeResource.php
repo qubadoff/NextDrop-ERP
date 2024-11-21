@@ -7,6 +7,7 @@ use App\Employee\DriverLicenseEnum;
 use App\Employee\EducationStatusEnum;
 use App\Employee\EmployeeSexEnum;
 use App\Employee\EmployeeStateStatus;
+use App\Employee\EmployeeStatusEnum;
 use App\Employee\EmployeeWorkStatus;
 use App\Employee\LanguageLevelEnum;
 use App\Employee\LanguageStatusEnum;
@@ -83,6 +84,10 @@ class EmployeeResource extends Resource
                         MilitaryStatusEnum::PASSED->value => 'Xidmətdə olub',
                         MilitaryStatusEnum::NOTPASSED->value => 'Xidmətdə olmayıb',
                     ])->required()->label('Hərbi xidmət'),
+                    Select::make('status')->options([
+                        EmployeeStatusEnum::ACTIVE->value => 'Aktiv',
+                        EmployeeStatusEnum::INACTIVE->value => 'Deaktiv',
+                    ])->required()->default(EmployeeStatusEnum::ACTIVE->value)->label('Status'),
                 ])->columns(5),
 
                 Section::make([
@@ -250,6 +255,10 @@ class EmployeeResource extends Resource
                 Tables\Columns\TextColumn::make('gross_salary')->label('Gross ə/h')->money('AZN'),
                 Tables\Columns\TextColumn::make('net_salary')->label('Net ə/h')->money('AZN'),
                 Tables\Columns\TextColumn::make('start_work_date')->label('İşə başlama vaxtı')->date(),
+                Tables\Columns\SelectColumn::make('status')->options([
+                    EmployeeStatusEnum::ACTIVE->value => 'Aktiv',
+                    EmployeeStatusEnum::INACTIVE->value => 'Deaktiv',
+                ])->label('Status'),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('branch_id')
