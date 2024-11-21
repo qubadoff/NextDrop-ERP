@@ -35,7 +35,14 @@ class PositionResource extends Resource
                 Section::make([
                     Select::make('department_id')->relationship('Department', 'name')->required()->label('Departament'),
                     TextInput::make('name')->required()->label('Ad'),
-                    TextInput::make('position_code')->required()->label('Vəzifə kodu')->unique('positions', 'position_code', ignoreRecord: true),
+                    TextInput::make('position_code')
+                        ->required()
+                        ->label('Vəzifə kodu')
+                        ->validationMessages([
+                            'required' => 'Vəzifə kodu mütləqdir.',
+                            'unique' => 'Bu vəzifə kodu artıq mövcuddur.',
+                        ])
+                        ->unique('positions', 'position_code', ignoreRecord: true),
                     Select::make('state_unit')->options([
                         '1' => 'Tam ştat',
                         '2' => 'Yarım ştat',
