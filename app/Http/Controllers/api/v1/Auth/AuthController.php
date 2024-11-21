@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api\v1\Auth;
 
+use App\Employee\EmployeeStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use Illuminate\Http\JsonResponse;
@@ -21,6 +22,11 @@ class AuthController extends Controller
         ]);
 
         $employee = Employee::where('email', $request->email)->first();
+
+        if ($employee->status === EmployeeStatusEnum::INACTIVE->value) {
+            $employee->tokens()->delete();
+            return response()->json(['message' => 'Sizin hesabınız deaktiv edilib !'], 422);
+        }
 
         if (!$employee || !Hash::check($request->password, $employee->password)) {
             return response()->json(['message' => 'Email və ya şifrə yanlışdır !'], 422);
