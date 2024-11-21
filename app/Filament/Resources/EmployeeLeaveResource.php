@@ -60,7 +60,11 @@ class EmployeeLeaveResource extends Resource
                 Tables\Columns\TextColumn::make('employee.name')->label('İşçi')->searchable(),
                 Tables\Columns\TextColumn::make('start_date')->label('Başlanış tarixi')->dateTime(),
                 Tables\Columns\TextColumn::make('end_date')->label('Bitiş tarixi')->dateTime(),
-                Tables\Columns\TextColumn::make('status')->label('Status')->badge(),
+                Tables\Columns\SelectColumn::make('status')->options([
+                    EmployeeLeaveStatusEnum::PENDING->value => 'Gözləmədə',
+                    EmployeeLeaveStatusEnum::APPROVED->value => 'Təsdiqləndi',
+                    EmployeeLeaveStatusEnum::REJECTED->value => 'Ləğv edildi',
+                ])->label('Status'),
                 Tables\Columns\TextColumn::make('created_at')->label('Əlavə olundu')->date(),
                 Tables\Columns\TextColumn::make('updated_at')->label('Yeniləndi')->date(),
             ])
