@@ -26,6 +26,8 @@ class EmployeeAttendanceResource extends Resource
 
     protected static ?string $label = 'Davamiyyət';
 
+    protected static ?int $navigationSort = 1;
+
     public static function form(Form $form): Form
     {
         return $form
