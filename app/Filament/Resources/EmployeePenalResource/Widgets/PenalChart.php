@@ -49,12 +49,12 @@ class PenalChart extends ChartWidget
                 break;
         }
 
-        // Trend ile verileri al
         $data = Trend::model(EmployeePenal::class)
             ->dateColumn('created_at')
             ->between(start: $startDate, end: $endDate)
             ->interval($interval)
-            ->sum('penal_amount'); // Cərimə toplamını al
+            ->sum('penal_amount');
+
 
         return [
             'datasets' => [
