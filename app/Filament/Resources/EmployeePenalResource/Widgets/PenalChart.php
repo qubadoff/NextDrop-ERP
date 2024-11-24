@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\EmployeePenalResource\Widgets;
 
+use App\Employee\EmployeePenalStatus;
 use App\Models\EmployeePenal;
 use Filament\Widgets\ChartWidget;
 use Flowframe\Trend\Trend;
@@ -17,7 +18,7 @@ class PenalChart extends ChartWidget
 
     protected static ?string $pollingInterval = '10s';
 
-    public ?string $filter = 'year'; // Varsayılan filtre 'year'
+    public ?string $filter = 'year';
 
     /**
      * Widget sütun sayısı
@@ -104,15 +105,19 @@ class PenalChart extends ChartWidget
         return 'pie';
     }
 
-    /**
-     * Trend kütüphanesi ile verileri al
-     */
+
     private function getPenalData($startDate, $endDate, $interval): \Illuminate\Support\Collection
     {
-        return Trend::model(EmployeePenal::class)
-            ->dateColumn('created_at')
-            ->between(start: $startDate, end: $endDate)
-            ->interval($interval)
-            ->sum('penal_amount');
+        return EmployeePenal::query()
+            ->where('status', EmployeePenalStatus::APPROVED->value)
+            ->selectRaw("DATE_FORMAT(created_at, '%Y-%m') as date, SUM(penal_amount) as aggregate")
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->groupByRaw("DATE_FORMAT(created_at, '%Y-%m')") // Sadece DATE_FORMAT kullanılıyor
+            ->orderByRaw("DATE_FORMAT(created_at, '%Y-%m') ASC")
+            ->get()
+            ->map(fn ($item) => new TrendValue(
+                date: $item->date,
+                aggregate: $item->aggregate
+            ));
     }
 }
