@@ -6,7 +6,7 @@ use Filament\Widgets\ChartWidget;
 
 class PenalChart extends ChartWidget
 {
-    protected static ?string $heading = 'Chart';
+    protected static ?string $heading = 'Ümumi Cərimələr';
 
     protected function getData(): array
     {
