@@ -96,8 +96,9 @@ class PenalChart extends ChartWidget
                 $data = Trend::model(EmployeePenal::class)
                     ->dateColumn('created_at')
                     ->between(start: $startDate, end: $endDate)
-                    ->perMonth()
+                    ->interval('month')
                     ->sum('penal_amount');
+
                 break;
         }
 
