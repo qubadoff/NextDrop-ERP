@@ -54,7 +54,7 @@ class PenalChart extends ChartWidget
             ->dateColumn('created_at')
             ->between(start: $startDate, end: $endDate)
             ->interval($interval)
-            ->sum('penalty_amount'); // Cərimə toplamını al
+            ->sum('penal_amount'); // Cərimə toplamını al
 
         return [
             'datasets' => [
