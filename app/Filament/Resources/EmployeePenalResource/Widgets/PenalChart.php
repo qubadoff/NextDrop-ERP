@@ -24,43 +24,17 @@ class PenalChart extends ChartWidget
         // Filtreyi al
         $filter = $this->filter ?? 'year'; // Varsayılan filtre 'year'
 
-        // Tarih aralığını belirle
-        switch ($filter) {
-            case 'today':
-                $startDate = now()->startOfDay();
-                $endDate = now()->endOfDay();
-                $interval = 'hour';
-                break;
-            case 'week':
-                $startDate = now()->startOfWeek();
-                $endDate = now()->endOfWeek();
-                $interval = 'day';
-                break;
-            case 'month':
-                $startDate = now()->startOfMonth();
-                $endDate = now()->endOfMonth();
-                $interval = 'day';
-                break;
-            case 'year':
-            default:
-                $startDate = now()->startOfYear();
-                $endDate = now()->endOfYear();
-                $interval = 'month';
-                break;
-        }
+        // Tarih aralığını ve intervali belirle
+        [$startDate, $endDate, $interval] = $this->getDateRangeAndInterval($filter);
 
+        // Trend verilerini al
         $data = Trend::model(EmployeePenal::class)
-            ->query(
-                EmployeePenal::query()
-                    ->selectRaw("DATE_FORMAT(created_at, '%Y-%m') as date, SUM(penal_amount) as aggregate")
-                    ->groupByRaw("DATE_FORMAT(created_at, '%Y-%m')")
-            )
             ->dateColumn('created_at')
             ->between(start: $startDate, end: $endDate)
+            ->interval($interval)
             ->sum('penal_amount');
 
-
-
+        // Grafiği döndür
         return [
             'datasets' => [
                 [
@@ -75,5 +49,39 @@ class PenalChart extends ChartWidget
     protected function getType(): string
     {
         return 'bar'; // Bar grafiği
+    }
+
+    /**
+     * Filtreye göre tarih aralığını ve intervali belirler.
+     */
+    private function getDateRangeAndInterval(string $filter): array
+    {
+        switch ($filter) {
+            case 'today':
+                return [
+                    now()->startOfDay(),
+                    now()->endOfDay(),
+                    'hour', // Saatlik
+                ];
+            case 'week':
+                return [
+                    now()->startOfWeek(),
+                    now()->endOfWeek(),
+                    'day', // Günlük
+                ];
+            case 'month':
+                return [
+                    now()->startOfMonth(),
+                    now()->endOfMonth(),
+                    'day', // Günlük
+                ];
+            case 'year':
+            default:
+                return [
+                    now()->startOfYear(),
+                    now()->endOfYear(),
+                    'month', // Aylık
+                ];
+        }
     }
 }
