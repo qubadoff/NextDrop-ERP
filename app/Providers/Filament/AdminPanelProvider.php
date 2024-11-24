@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Resources\EmployeeAvansResource\Widgets\EmployeeAvansChart;
 use App\Filament\Resources\EmployeeAwardResource\Widgets\EmployeeAwardResource;
 use App\Filament\Resources\EmployeePenalResource\Widgets\PenalChart;
 use Filament\Http\Middleware\Authenticate;
@@ -46,6 +47,7 @@ class AdminPanelProvider extends PanelProvider
                 //Widgets\AccountWidget::class,
                 PenalChart::class,
                 EmployeeAwardResource::class,
+                EmployeeAvansChart::class,
                 //Widgets\FilamentInfoWidget::class,
             ])
             ->plugins([

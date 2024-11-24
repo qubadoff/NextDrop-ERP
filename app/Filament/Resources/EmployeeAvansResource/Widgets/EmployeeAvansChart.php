@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Filament\Resources\EmployeeAwardResource\Widgets;
+namespace App\Filament\Resources\EmployeeAvansResource\Widgets;
 
 use Filament\Widgets\ChartWidget;
 
-class EmployeeAwardResource extends ChartWidget
+class EmployeeAvansChart extends ChartWidget
 {
-    protected static ?string $heading = 'Ümumi Mükafatlar';
+    protected static ?string $heading = 'Ümumi Avanslar';
 
     protected function getData(): array
     {
