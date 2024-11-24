@@ -2,7 +2,7 @@
 
 namespace App\Providers\Filament;
 
-use BezhanSalleh\FilamentExceptions\FilamentExceptionsPlugin;
+use App\Filament\Resources\EmployeePenalResource\Widgets\PenalChart;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -19,8 +19,6 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use TomatoPHP\FilamentMediaManager\Facade\FilamentMediaManager;
-use TomatoPHP\FilamentMediaManager\Services\Contracts\MediaManagerType;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -45,6 +43,7 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
+                PenalChart::class,
                 //Widgets\FilamentInfoWidget::class,
             ])
             ->plugins([
