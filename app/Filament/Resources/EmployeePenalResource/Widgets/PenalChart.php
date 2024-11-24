@@ -65,40 +65,23 @@ class PenalChart extends ChartWidget
             case 'today':
                 $startDate = now()->startOfDay();
                 $endDate = now()->endOfDay();
-                $data = Trend::model(EmployeePenal::class)
-                    ->dateColumn('created_at')
-                    ->between(start: $startDate, end: $endDate)
-                    ->perHour()
-                    ->sum('penal_amount');
+                $data = $this->getPenalData($startDate, $endDate, 'hour');
                 break;
             case 'week':
                 $startDate = now()->startOfWeek();
                 $endDate = now()->endOfWeek();
-                $data = Trend::model(EmployeePenal::class)
-                    ->dateColumn('created_at')
-                    ->between(start: $startDate, end: $endDate)
-                    ->perDay()
-                    ->sum('penal_amount');
+                $data = $this->getPenalData($startDate, $endDate, 'day');
                 break;
             case 'month':
                 $startDate = now()->startOfMonth();
                 $endDate = now()->endOfMonth();
-                $data = Trend::model(EmployeePenal::class)
-                    ->dateColumn('created_at')
-                    ->between(start: $startDate, end: $endDate)
-                    ->perDay()
-                    ->sum('penal_amount');
+                $data = $this->getPenalData($startDate, $endDate, 'day');
                 break;
             case 'year':
             default:
                 $startDate = now()->startOfYear();
                 $endDate = now()->endOfYear();
-                $data = Trend::model(EmployeePenal::class)
-                    ->dateColumn('created_at')
-                    ->between(start: $startDate, end: $endDate)
-                    ->interval('month')
-                    ->sum('penal_amount');
-
+                $data = $this->getPenalData($startDate, $endDate, 'month');
                 break;
         }
 
@@ -119,5 +102,21 @@ class PenalChart extends ChartWidget
     protected function getType(): string
     {
         return 'bar';
+    }
+
+    /**
+     * Veriyi Trend ile al
+     */
+    private function getPenalData($startDate, $endDate, $interval): \Illuminate\Support\Collection
+    {
+        return Trend::query(
+            EmployeePenal::query()
+                ->selectRaw("DATE_FORMAT(created_at, '%Y-%m') as date, SUM(penal_amount) as aggregate")
+                ->groupByRaw("DATE_FORMAT(created_at, '%Y-%m')")
+        )
+            ->dateColumn('created_at')
+            ->between(start: $startDate, end: $endDate)
+            ->interval($interval)
+            ->sum('penal_amount');
     }
 }
