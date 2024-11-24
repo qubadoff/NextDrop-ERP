@@ -50,10 +50,15 @@ class PenalChart extends ChartWidget
         }
 
         $data = Trend::model(EmployeePenal::class)
+            ->query(
+                EmployeePenal::query()
+                    ->selectRaw("DATE_FORMAT(created_at, '%Y-%m') as date, SUM(penal_amount) as aggregate")
+                    ->groupByRaw("DATE_FORMAT(created_at, '%Y-%m')")
+            )
             ->dateColumn('created_at')
             ->between(start: $startDate, end: $endDate)
-            ->interval($interval)
             ->sum('penal_amount');
+
 
 
         return [
