@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\EmployeePenalResource\Widgets;
 
+use App\Employee\EmployeePenalStatus;
 use App\Models\EmployeePenal;
 use Filament\Widgets\ChartWidget;
 use Flowframe\Trend\Trend;
@@ -108,6 +109,7 @@ class PenalChart extends ChartWidget
     private function getPenalData($startDate, $endDate, $interval): \Illuminate\Support\Collection
     {
         return EmployeePenal::query()
+            ->where('status', EmployeePenalStatus::APPROVED->value)
             ->selectRaw("DATE_FORMAT(created_at, '%Y-%m') as date, SUM(penal_amount) as aggregate")
             ->whereBetween('created_at', [$startDate, $endDate])
             ->groupByRaw("DATE_FORMAT(created_at, '%Y-%m')") // Sadece DATE_FORMAT kullanılıyor
