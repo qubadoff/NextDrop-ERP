@@ -2,39 +2,105 @@
 
 namespace App\Filament\Resources\EmployeePenalResource\Widgets;
 
-use Filament\Widgets\ChartWidget;
 use App\Models\EmployeePenal;
+use Filament\Widgets\ChartWidget;
 use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
 
 class PenalChart extends ChartWidget
 {
+    protected static ?int $sort = 1;
+
     protected static ?string $heading = 'Ümumi Cərimələr';
 
-    // Filtreler için state belirle
-    protected static ?array $filters = [
-        'today' => 'Bugün',
-        'week' => 'Bu Hafta',
-        'month' => 'Bu Ay',
-        'year' => 'Bu Yıl',
-    ];
+    protected static string $color = 'danger';
 
+    protected static ?string $pollingInterval = '10s';
+
+    public ?string $filter = 'year';
+
+    /**
+     * Widget sütun sayısı
+     */
+    public function getColumns(): int | string | array
+    {
+        return 1;
+    }
+
+    /**
+     * Widget açıklama metni
+     */
+    public function getDescription(): ?string
+    {
+        return 'Əsas parametr İL olaraq qeyd edilib.';
+    }
+
+    /**
+     * Filtreleme işlemi
+     */
+    protected function getFilters(): ?array
+    {
+        return [
+            'today' => 'Gün',
+            'week' => 'Həftə',
+            'month' => 'Ay',
+            'year' => 'İl',
+        ];
+    }
+
+    /**
+     * Kullanıcı tarafından seçilen filtreyi uygula
+     */
+    public function applyFilter($filter): void
+    {
+        $this->filter = $filter;
+    }
+
+    /**
+     * Veriyi hazırla
+     */
     protected function getData(): array
     {
-        // Filtreyi al
-        $filter = $this->filter ?? 'year'; // Varsayılan filtre 'year'
+        switch ($this->filter) {
+            case 'today':
+                $startDate = now()->startOfDay();
+                $endDate = now()->endOfDay();
+                $data = Trend::model(EmployeePenal::class)
+                    ->dateColumn('created_at')
+                    ->between(start: $startDate, end: $endDate)
+                    ->perHour()
+                    ->sum('penal_amount');
+                break;
+            case 'week':
+                $startDate = now()->startOfWeek();
+                $endDate = now()->endOfWeek();
+                $data = Trend::model(EmployeePenal::class)
+                    ->dateColumn('created_at')
+                    ->between(start: $startDate, end: $endDate)
+                    ->perDay()
+                    ->sum('penal_amount');
+                break;
+            case 'month':
+                $startDate = now()->startOfMonth();
+                $endDate = now()->endOfMonth();
+                $data = Trend::model(EmployeePenal::class)
+                    ->dateColumn('created_at')
+                    ->between(start: $startDate, end: $endDate)
+                    ->perDay()
+                    ->sum('penal_amount');
+                break;
+            case 'year':
+            default:
+                $startDate = now()->startOfYear();
+                $endDate = now()->endOfYear();
+                $data = Trend::model(EmployeePenal::class)
+                    ->dateColumn('created_at')
+                    ->between(start: $startDate, end: $endDate)
+                    ->perMonth()
+                    ->sum('penal_amount');
+                break;
+        }
 
-        // Tarih aralığını ve intervali belirle
-        [$startDate, $endDate, $interval] = $this->getDateRangeAndInterval($filter);
-
-        // Trend verilerini al
-        $data = Trend::model(EmployeePenal::class)
-            ->dateColumn('created_at')
-            ->between(start: $startDate, end: $endDate)
-            ->interval($interval)
-            ->sum('penal_amount');
-
-        // Grafiği döndür
         return [
             'datasets' => [
                 [
@@ -46,42 +112,11 @@ class PenalChart extends ChartWidget
         ];
     }
 
+    /**
+     * Grafik türü
+     */
     protected function getType(): string
     {
-        return 'bar'; // Bar grafiği
-    }
-
-    /**
-     * Filtreye göre tarih aralığını ve intervali belirler.
-     */
-    private function getDateRangeAndInterval(string $filter): array
-    {
-        switch ($filter) {
-            case 'today':
-                return [
-                    now()->startOfDay(),
-                    now()->endOfDay(),
-                    'hour', // Saatlik
-                ];
-            case 'week':
-                return [
-                    now()->startOfWeek(),
-                    now()->endOfWeek(),
-                    'day', // Günlük
-                ];
-            case 'month':
-                return [
-                    now()->startOfMonth(),
-                    now()->endOfMonth(),
-                    'day', // Günlük
-                ];
-            case 'year':
-            default:
-                return [
-                    now()->startOfYear(),
-                    now()->endOfYear(),
-                    'month', // Aylık
-                ];
-        }
+        return 'bar';
     }
 }
