@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Resources\EmployeeAwardResource\Widgets\EmployeeAwardResource;
 use App\Filament\Resources\EmployeePenalResource\Widgets\PenalChart;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -44,6 +45,7 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
                 PenalChart::class,
+                EmployeeAwardResource::class,
                 //Widgets\FilamentInfoWidget::class,
             ])
             ->plugins([
