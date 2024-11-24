@@ -104,19 +104,18 @@ class PenalChart extends ChartWidget
         return 'bar';
     }
 
-    /**
-     * Veriyi Trend ile al
-     */
+
     private function getPenalData($startDate, $endDate, $interval): \Illuminate\Support\Collection
     {
-        return Trend::query(
-            EmployeePenal::query()
-                ->selectRaw("DATE_FORMAT(created_at, '%Y-%m') as date, SUM(penal_amount) as aggregate")
-                ->groupByRaw("DATE_FORMAT(created_at, '%Y-%m')")
-        )
-            ->dateColumn('created_at')
-            ->between(start: $startDate, end: $endDate)
-            ->interval($interval)
-            ->sum('penal_amount');
+        return EmployeePenal::query()
+            ->selectRaw("DATE_FORMAT(created_at, '%Y-%m') as date, SUM(penal_amount) as aggregate")
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->groupByRaw("DATE_FORMAT(created_at, '%Y-%m')") // Sadece DATE_FORMAT kullanılıyor
+            ->orderByRaw("DATE_FORMAT(created_at, '%Y-%m') ASC")
+            ->get()
+            ->map(fn ($item) => new TrendValue(
+                date: $item->date,
+                aggregate: $item->aggregate
+            ));
     }
 }
