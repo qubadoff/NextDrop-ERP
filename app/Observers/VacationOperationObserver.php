@@ -3,8 +3,7 @@
 namespace App\Observers;
 
 use App\Models\VacationDay;
-use App\Vacation\VacationStatusEnum;
-use Carbon\Carbon;
+use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\DB;
 
 class VacationOperationObserver
@@ -15,7 +14,26 @@ class VacationOperationObserver
      */
     public function created(VacationDay $vacationDay): void
     {
-        //
+        $employeeId = $vacationDay->employee_id;
+
+        $dayLimit = DB::table('employee_vacation_day_options')
+            ->where('employee_id', $employeeId)
+            ->value('day_count');
+
+        $totalVacationDays = DB::table('vacation_days')
+            ->where('employee_id', $employeeId)
+            ->sum('vacation_day_count');
+
+        if ($totalVacationDays > $dayLimit) {
+            Notification::make()
+                ->title('Əməliyyat icra olunmadı !')
+                ->danger()
+                ->body('İşçinin məzuniyyət günlərinin sayı ' . $dayLimit . ' dənədən artıq olmalıdır !')
+                ->send();
+
+            $vacationDay->delete();
+        }
+
     }
 
     /**
