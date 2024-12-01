@@ -36,13 +36,32 @@ class VacationOperationObserver
 
     }
 
-    /**
-     * Handle the VacationDay "updated" event.
-     */
     public function updated(VacationDay $vacationDay): void
     {
-        //
+        $employeeId = $vacationDay->employee_id;
+
+        $dayLimit = DB::table('employee_vacation_day_options')
+            ->where('employee_id', $employeeId)
+            ->value('day_count');
+
+        $totalVacationDays = DB::table('vacation_days')
+            ->where('employee_id', $employeeId)
+            ->where('id', '!=', $vacationDay->id) // Güncellenen satır hariç
+            ->sum('vacation_day_count');
+
+        $newTotal = $totalVacationDays + $vacationDay->vacation_day_count;
+
+        if ($newTotal > $dayLimit) {
+            Notification::make()
+                ->title('Əməliyyat icra olunmadı !')
+                ->danger()
+                ->body('İşçinin məzuniyyət günlərinin sayı ' . $dayLimit - $totalVacationDays . ' - gündən artıq olmamalıdır !')
+                ->send();
+
+            DB::rollBack();
+        }
     }
+
 
     /**
      * Handle the VacationDay "deleted" event.
