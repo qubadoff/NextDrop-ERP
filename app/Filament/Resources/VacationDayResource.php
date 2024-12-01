@@ -2,9 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Employee\EmployeeStatusEnum;
 use App\Filament\Resources\VacationDayResource\Pages;
-use App\Models\Employee;
 use App\Models\VacationDay;
 use App\Vacation\VacationPayTypeEnum;
 use App\Vacation\VacationStatusEnum;
@@ -14,7 +12,6 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
-use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -83,6 +80,19 @@ class VacationDayResource extends Resource
                 Tables\Columns\TextColumn::make('employee.surname')->label('Soyad')->searchable(),
                 Tables\Columns\TextColumn::make('employee.id_pin_code')->label('Fin kod')->searchable(),
                 Tables\Columns\TextColumn::make('vacation_day_count')->label('Məzuniyyət günlərinin sayı')->badge(),
+                Tables\Columns\TextColumn::make('remaining_days')
+                    ->label('Qalan Günlər')
+                    ->getStateUsing(function ($record) {
+                        $usedDays = DB::table('vacation_days')
+                            ->where('employee_id', $record->employee_id)
+                            ->sum('vacation_day_count');
+
+                        $maxDays = DB::table('employee_vacation_day_options')
+                            ->where('employee_id', $record->employee_id)
+                            ->value('day_count');
+
+                        return $maxDays - $usedDays;
+                    }),
                 Tables\Columns\TextColumn::make('vacation_start_date')->label('Başlama vaxtı')->date(),
                 Tables\Columns\TextColumn::make('vacation_end_date')->label('Bitmə vaxtı')->date(),
                 Tables\Columns\TextColumn::make('vacation_pay_type')->label('Növü')->badge(),

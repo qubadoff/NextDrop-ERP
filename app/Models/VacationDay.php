@@ -5,11 +5,9 @@ namespace App\Models;
 use App\Vacation\VacationPayTypeEnum;
 use App\Vacation\VacationStatusEnum;
 use App\Vacation\VacationTypeEnum;
-use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\DB;
 
 class VacationDay extends Model
 {
