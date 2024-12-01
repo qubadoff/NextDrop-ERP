@@ -20,22 +20,18 @@ class CreateVacationDay extends CreateRecord
     {
         $employeeId = $data['employee_id'];
 
-        // Vacation day limitini al
         $dayLimit = DB::table('employee_vacation_day_options')
             ->where('employee_id', $employeeId)
             ->value('day_count');
 
-        // Mevcut toplam vacation days hesapla
         $totalVacationDays = DB::table('vacation_days')
             ->where('employee_id', $employeeId)
             ->sum('vacation_day_count');
 
-        // Tarihler arası farkı hesapla
         $startDate = Carbon::parse($data['vacation_start_date']);
         $endDate = Carbon::parse($data['vacation_end_date']);
-        $calculatedDays = $startDate->diffInDays($endDate) + 1; // Başlama ve bitiş günü dahil
+        $calculatedDays = $startDate->diffInDays($endDate) + 1;
 
-        // Vacation day count ile hesaplanan gün sayısını karşılaştır
         if ($data['vacation_day_count'] != $calculatedDays) {
             Notification::make()
                 ->title('Əməliyyat icra olunmadı!')
@@ -46,7 +42,6 @@ class CreateVacationDay extends CreateRecord
             $this->halt();
         }
 
-        // Vacation day limit kontrolü
         if ($totalVacationDays + $data['vacation_day_count'] > $dayLimit) {
             Notification::make()
                 ->title('Əməliyyat icra olunmadı!')
@@ -59,7 +54,4 @@ class CreateVacationDay extends CreateRecord
 
         return $data;
     }
-
-
-
 }
