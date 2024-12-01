@@ -42,6 +42,8 @@ class StatsOverview extends BaseWidget
 
         $totalPenalAmount = EmployeePenal::where('status', EmployeePenalStatus::APPROVED)->sum('penal_amount');
 
+        $totalSalaryAmount = 14345;
+
 
         return [
             Stat::make('Bütün aktiv Əməkdaşlar', Employee::query()->where('status', EmployeeStatusEnum::ACTIVE)->count())
@@ -49,6 +51,13 @@ class StatsOverview extends BaseWidget
                 ->description(abs($customerIncrease) . ' ' . ($customerIncrease >= 0 ? 'Artım' : 'Azalıb'))
                 ->descriptionIcon($customerIncrease >= 0 ? 'heroicon-m-arrow-trending-up' : 'heroicon-m-arrow-trending-down')
                 ->chart([7, 2, 10, 3, 15, 4, 17]),
+
+            Stat::make('Ümumi Mükafat Məbləği', $totalSalaryAmount . ' AZN')
+                ->color('success')
+                ->description('Ümumi mükafat məbləği')
+                ->descriptionIcon('heroicon-m-trophy')
+                ->chart([5, 7, 3, 9, 4, 6, 10]),
+
 
             Stat::make('Ümumi Mükafat Məbləği', $totalAwardsAmount . ' AZN')
                 ->color('success')
