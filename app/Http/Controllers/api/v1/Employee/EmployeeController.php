@@ -110,24 +110,31 @@ class EmployeeController extends Controller
                     ->exists();
 
                 if ($isFirstEntry) {
-                    $workHours = DB::table('employee_work_hours')
-                        ->where('employee_id', $employee->id)
-                        ->where('weekday', $weekday)
-                        ->first();
+                    $hasTodayEntry = EmployeeAttendance::where('employee_id', $employee->id)
+                        ->whereDate('employee_in', Carbon::today())
+                        ->exists();
 
-                    if ($workHours && $employeeIn->gt(Carbon::parse($workHours->start_time))) {
-                        $startTime = Carbon::parse($workHours->start_time);
-                        $lateTime = $startTime->diffInMinutes($employeeIn);
+                    if (!$hasTodayEntry) {
+                        $workHours = DB::table('employee_work_hours')
+                            ->where('employee_id', $employee->id)
+                            ->where('weekday', $weekday)
+                            ->first();
 
-                        DB::table('late_employees')->insert([
-                            'employee_id' => $employee->id,
-                            'date' => $employeeIn,
-                            'late_time' => $lateTime,
-                            'created_at' => now(),
-                            'updated_at' => now(),
-                        ]);
+                        if ($workHours && $employeeIn->gt(Carbon::parse($workHours->start_time))) {
+                            $startTime = Carbon::parse($workHours->start_time);
+                            $lateTime = $startTime->diffInMinutes($employeeIn);
+
+                            DB::table('late_employees')->insert([
+                                'employee_id' => $employee->id,
+                                'date' => $employeeIn,
+                                'late_time' => $lateTime,
+                                'created_at' => now(),
+                                'updated_at' => now(),
+                            ]);
+                        }
                     }
                 }
+
 
                 EmployeeAttendance::create([
                     'employee_id' => $employee->id,
