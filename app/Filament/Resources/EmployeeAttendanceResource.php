@@ -84,8 +84,7 @@ class EmployeeAttendanceResource extends Resource
                             ->value('late_time');
 
                         return $late ? formatDuration($late) : 'Gecikmə yoxdur';
-                    }),
-
+                    })
 
             ])->defaultSort('created_at', 'desc')
 
