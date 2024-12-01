@@ -28,7 +28,7 @@ class VacationOperationObserver
             Notification::make()
                 ->title('Əməliyyat icra olunmadı !')
                 ->danger()
-                ->body('İşçinin məzuniyyət günlərinin sayı ' . $dayLimit - $totalVacationDays . ' gündən dənədən artıq olmalıdır !')
+                ->body('İşçinin məzuniyyət günlərinin sayı ' . $dayLimit - $totalVacationDays . ' - gündən artıq olmamalıdır !')
                 ->send();
 
             DB::rollBack();
