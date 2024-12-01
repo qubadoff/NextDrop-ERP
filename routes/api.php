@@ -13,7 +13,7 @@ Route::prefix('v1')->group(function () {
     Route::prefix('employee')->group(function () {
         Route::prefix('attendance')->group(function () {
             Route::get('/list', [EmployeeController::class, 'list']);
-            Route::post('/sendAttendance', [EmployeeController::class, 'sendAttendance']);
+            Route::post('/sendAttendance', [EmployeeController::class, 'sendAttendance'])->middleware('throttle:1,1');
         });
         Route::prefix('penal')->group(function () {
             Route::get('/penalList', [EmployeeController::class, 'penalList']);
