@@ -82,6 +82,7 @@ class VacationDayResource extends Resource
                 Tables\Columns\TextColumn::make('vacation_day_count')->label('Məzuniyyət günlərinin sayı')->badge(),
                 Tables\Columns\TextColumn::make('remaining_days')
                     ->label('Qalan Günlər')
+                    ->badge()
                     ->getStateUsing(function ($record) {
                         $usedDays = DB::table('vacation_days')
                             ->where('employee_id', $record->employee_id)
