@@ -79,7 +79,7 @@ class VacationDayResource extends Resource
                 Tables\Columns\TextColumn::make('employee.name')->label('Ad')->searchable(),
                 Tables\Columns\TextColumn::make('employee.surname')->label('Soyad')->searchable(),
                 Tables\Columns\TextColumn::make('employee.id_pin_code')->label('Fin kod')->searchable(),
-                Tables\Columns\TextColumn::make('vacation_day_count')->label('Məzuniyyət günlərinin sayı')->badge(),
+                Tables\Columns\TextColumn::make('vacation_day_count')->label('Günlərinin sayı')->badge(),
                 Tables\Columns\TextColumn::make('remaining_days')
                     ->label('Qalan Günlər')
                     ->badge()
