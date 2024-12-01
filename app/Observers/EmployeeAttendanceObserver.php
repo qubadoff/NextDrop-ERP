@@ -17,18 +17,13 @@ class EmployeeAttendanceObserver
         $employeeIn = $employeeAttendance->employee_in;
         $employeeOut = $employeeAttendance->employee_out;
 
-        // employee_in ve employee_out dolu mu kontrol et
         if ($employeeIn && $employeeOut) {
-            // Giriş ve çıkış zamanlarının sırasını kontrol et
             if (Carbon::parse($employeeOut)->lessThan(Carbon::parse($employeeIn))) {
-                // Negatif süreyi önlemek için işlem yapılmaz ve hata gösterilir
-                throw new Exception('Çıkış zamanı giriş zamanından önce olamaz!');
+                throw new Exception('Çıxış vaxtı giriş vaxtından balaca ola bilməz !');
             }
 
-            // Dakika cinsinden süreyi hesapla
             $duration = Carbon::parse($employeeOut)->diffInMinutes(Carbon::parse($employeeIn));
 
-            // Duration değerini dakika olarak kaydet
             $employeeAttendance->update([
                 'duration' => $duration * -1,
             ]);
