@@ -7,6 +7,7 @@ use App\Filament\Resources\EmployeeAttendanceResource\Pages;
 use App\Models\Branch;
 use App\Models\Employee;
 use App\Models\EmployeeAttendance;
+use Carbon\Carbon;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Section;
@@ -15,6 +16,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeAttendanceResource extends Resource
 {
@@ -73,6 +75,16 @@ class EmployeeAttendanceResource extends Resource
                         Tables\Columns\Summarizers\Sum::make()
                             ->formatStateUsing(fn ($state) => $state ? formatDuration($state) : '0 saat 0 dəqiqə'),
                     ]),
+                Tables\Columns\TextColumn::make('late_time')
+                    ->label('Gecikmə')
+                    ->getStateUsing(function ($record) {
+                        $late = DB::table('late_employees')
+                            ->where('employee_id', $record->employee_id)
+                            ->whereDate('date', Carbon::parse($record->employee_in)->toDateString())
+                            ->value('late_time');
+
+                        return $late ? formatDuration($late) : 'Gecikmə yoxdur';
+                    }),
 
 
             ])->defaultSort('created_at', 'desc')
