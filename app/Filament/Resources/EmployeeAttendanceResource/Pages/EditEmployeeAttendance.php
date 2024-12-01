@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\EmployeeAttendanceResource\Pages;
 
 use App\Filament\Resources\EmployeeAttendanceResource;
+use App\Vacation\VacationStatusEnum;
 use Carbon\Carbon;
 use Filament\Actions;
 use Filament\Notifications\Notification;
@@ -27,6 +28,16 @@ class EditEmployeeAttendance extends EditRecord
     protected function mutateFormDataBeforeSave(array $data): array
     {
         $employeeId = $data['employee_id'];
+
+        if ($this->record->status == VacationStatusEnum::APPROVED) {
+            Notification::make()
+                ->title('Əməliyyat icra olunmadı!')
+                ->danger()
+                ->body('Təsdiqlənmiş məzuniyyət qeydini dəyişmək mümkün deyil!')
+                ->send();
+
+            $this->halt();
+        }
 
         $dayLimit = DB::table('employee_vacation_day_options')
             ->where('employee_id', $employeeId)
