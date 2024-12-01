@@ -28,6 +28,8 @@ class CreateVacationDay extends CreateRecord
             ->where('employee_id', $employeeId)
             ->sum('vacation_day_count') ?? 0;
 
+        dd($dayLimit, $totalVacationDays);
+
         if ($totalVacationDays + $data['vacation_day_count'] > $dayLimit) {
             Notification::make()
                 ->title('Əməliyyat icra olunmadı !')
