@@ -20,7 +20,7 @@ class CreateVacationDay extends CreateRecord
     {
         $employeeId = $data['employee_id'];
 
-        dd($data);
+        dd($employeeId);
 
         $dayLimit = DB::table('employee_vacation_day_options')
             ->where('employee_id', $employeeId)
