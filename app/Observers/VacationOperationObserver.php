@@ -31,7 +31,7 @@ class VacationOperationObserver
                 ->body('İşçinin məzuniyyət günlərinin sayı ' . $dayLimit . ' dənədən artıq olmalıdır !')
                 ->send();
 
-            $vacationDay->delete();
+            DB::rollBack();
         }
 
     }
