@@ -40,16 +40,17 @@ class VacationDayResource extends Resource
         return $form
             ->schema([
                 Section::make([
-                    Select::make('employee_id')
-                        ->options(
-                            Employee::where('status', EmployeeStatusEnum::ACTIVE)
-                                ->get()
-                                ->mapWithKeys(function ($person) {
-                                    return [$person->id => $person->name . ' ' . $person->surname . ' ' . $person->id_pin_code];
-                                })
-                        )
-                        ->required()
-                        ->label('Əməkdaş'),
+//                    Select::make('employee_id')
+//                        ->options(
+//                            Employee::where('status', EmployeeStatusEnum::ACTIVE)
+//                                ->get()
+//                                ->mapWithKeys(function ($person) {
+//                                    return [$person->id => $person->name . ' ' . $person->surname . ' ' . $person->id_pin_code];
+//                                })
+//                        )
+//                        ->required()
+//                        ->label('Əməkdaş'),
+                    Select::make('employee_id')->options(Employee::all()->pluck('name', 'id'))->required()->label('Əməkdaş'),
                     TextInput::make('vacation_day_count')->required()->label('Gün sayı')->suffix(' Gün')->numeric(),
                     DatePicker::make('vacation_start_date')->required()->label('Məzuniyyətin başlama vaxtı'),
                     DatePicker::make('vacation_end_date')->required()->label('Məzuniyyətin bitmə vaxtı'),
