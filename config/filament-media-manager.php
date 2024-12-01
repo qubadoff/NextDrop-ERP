@@ -1,9 +1,15 @@
 <?php
 
+use TomatoPHP\FilamentMediaManager\Http\Resources\FolderResource;
+use TomatoPHP\FilamentMediaManager\Http\Resources\FoldersResource;
+use TomatoPHP\FilamentMediaManager\Http\Resources\MediaResource;
+use TomatoPHP\FilamentMediaManager\Models\Folder;
+use TomatoPHP\FilamentMediaManager\Models\Media;
+
 return [
     "model" => [
-        "folder" => \TomatoPHP\FilamentMediaManager\Models\Folder::class,
-        "media" => \TomatoPHP\FilamentMediaManager\Models\Media::class,
+        "folder" => Folder::class,
+        "media" => Media::class,
     ],
 
     "api" => [
@@ -14,13 +20,13 @@ return [
         ],
         "prefix" => "api/media-manager",
         "resources" => [
-            "folders" => \TomatoPHP\FilamentMediaManager\Http\Resources\FoldersResource::class,
-            "folder" => \TomatoPHP\FilamentMediaManager\Http\Resources\FolderResource::class,
-            "media" => \TomatoPHP\FilamentMediaManager\Http\Resources\MediaResource::class
+            "folders" => FoldersResource::class,
+            "folder" => FolderResource::class,
+            "media" => MediaResource::class
         ]
     ],
 
     "user" => [
-      'column_name' => 'name', // Change the value if your field in users table is different from "name"
+      'column_name' => 'name',
     ],
 ];

@@ -17,7 +17,7 @@ class EmployeeLeaveOptionResource extends Resource
 {
     protected static ?string $model = EmployeeLeaveOption::class;
 
-    protected static ?string $navigationLabel = 'Davamiyyət ayarları';
+    protected static ?string $navigationLabel = 'Cərimə ayarları';
 
     protected static ?string $navigationIcon = 'heroicon-o-clock';
 
