@@ -32,7 +32,7 @@ class StatsOverview extends BaseWidget
         $customerIncrease = $currentCustomerCount - $previousCustomerCount;
 
         // Toplam ödül miktarı
-        $totalAwardsAmount = EmployeeAward::sum('amount');
+        $totalAwardsAmount = EmployeeAward::sum('award_amount');
 
         return [
             Stat::make('Bütün aktiv Əməkdaşlar', Employee::query()->where('status', EmployeeStatusEnum::ACTIVE)->count())
