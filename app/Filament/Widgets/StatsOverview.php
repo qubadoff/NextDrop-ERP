@@ -62,9 +62,9 @@ class StatsOverview extends BaseWidget
                 ->descriptionIcon('heroicon-m-currency-dollar')
                 ->chart([3, 8, 2, 11, 5, 7, 12]),
 
-            Stat::make('Ümumi Avans Məbləği', $totalPenalAmount . ' AZN')
+            Stat::make('Ümumi Cərimə Məbləği', $totalPenalAmount . ' AZN')
                 ->color('info')
-                ->description('Ümumi avans məbləği')
+                ->description('Ümumi Cərimə məbləği')
                 ->descriptionIcon('heroicon-m-currency-dollar')
                 ->chart([3, 8, 2, 11, 5, 7, 12]),
         ];
