@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources;
 
+use App\Employee\EmployeeStatusEnum;
 use App\Filament\Resources\VacationDayResource\Pages;
+use App\Models\Employee;
 use App\Models\VacationDay;
 use App\Vacation\VacationPayTypeEnum;
 use App\Vacation\VacationStatusEnum;
@@ -36,8 +38,16 @@ class VacationDayResource extends Resource
         return $form
             ->schema([
                 Section::make([
-                    Select::make('employee_id')->relationship('employee', 'name')
-                        ->required()->label('İşçi'),
+                    Select::make('employee_id')
+                        ->options(
+                            Employee::where('status', EmployeeStatusEnum::ACTIVE)
+                                ->get()
+                                ->mapWithKeys(function ($person) {
+                                    return [$person->id => $person->name . ' ' . $person->surname . ' ' . $person->id_pin_code];
+                                })
+                        )
+                        ->required()
+                        ->label('Əməkdaş'),
                     TextInput::make('vacation_all_days_count')->required()->label('İllik məzuniyyət ( gün )')->numeric(),
                     DatePicker::make('vacation_start_date')->required()->label('Məzuniyyətin başlama vaxtı'),
                     DatePicker::make('vacation_end_date')->required()->label('Məzuniyyətin bitmə vaxtı'),

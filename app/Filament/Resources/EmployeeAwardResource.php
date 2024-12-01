@@ -4,7 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Employee\EmployeeAwardStatus;
 use App\Employee\EmployeeAwardType;
+use App\Employee\EmployeeStatusEnum;
 use App\Filament\Resources\EmployeeAwardResource\Pages;
+use App\Models\Employee;
 use App\Models\EmployeeAward;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Section;
@@ -36,7 +38,16 @@ class EmployeeAwardResource extends Resource
         return $form
             ->schema([
                 Section::make([
-                    Select::make('employee_id')->relationship('employee', 'name')->required()->label('İşçi'),
+                    Select::make('employee_id')
+                        ->options(
+                            Employee::where('status', EmployeeStatusEnum::ACTIVE)
+                                ->get()
+                                ->mapWithKeys(function ($person) {
+                                    return [$person->id => $person->name . ' ' . $person->surname . ' ' . $person->id_pin_code];
+                                })
+                        )
+                        ->required()
+                        ->label('Əməkdaş'),
                     DatePicker::make('date')->label('Tarix')->required(),
                     TextInput::make('award_amount')->label('Mükafat məbləği')->required()->suffix(' AZN')->numeric(),
                     TextInput::make('who_added')->label('Kim tərəfindən ?')->required(),

@@ -3,7 +3,9 @@
 namespace App\Filament\Resources;
 
 use App\Employee\EmployeeLeaveStatusEnum;
+use App\Employee\EmployeeStatusEnum;
 use App\Filament\Resources\EmployeeLeaveResource\Pages;
+use App\Models\Employee;
 use App\Models\EmployeeLeave;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Section;
@@ -35,9 +37,15 @@ class EmployeeLeaveResource extends Resource
             ->schema([
                 Section::make([
                     Select::make('employee_id')
-                        ->relationship('employee', 'name')
+                        ->options(
+                            Employee::where('status', EmployeeStatusEnum::ACTIVE)
+                                ->get()
+                                ->mapWithKeys(function ($person) {
+                                    return [$person->id => $person->name . ' ' . $person->surname . ' ' . $person->id_pin_code];
+                                })
+                        )
                         ->required()
-                        ->label('İşçi'),
+                        ->label('Əməkdaş'),
                     DateTimePicker::make('start_date')->required()->label('Başlanğıc tarixi'),
                     DateTimePicker::make('end_date')->required()->label('Bitiş tarixi'),
                     Textarea::make('reason')->required()->label('Səbəb'),
