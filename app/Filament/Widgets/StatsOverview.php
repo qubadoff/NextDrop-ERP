@@ -2,10 +2,14 @@
 
 namespace App\Filament\Widgets;
 
+use App\Employee\EmployeeAvansStatus;
+use App\Employee\EmployeeAwardStatus;
+use App\Employee\EmployeePenalStatus;
 use App\Employee\EmployeeStatusEnum;
 use App\Models\Employee;
 use App\Models\EmployeeAvans;
 use App\Models\EmployeeAward;
+use App\Models\EmployeePenal;
 use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -32,9 +36,11 @@ class StatsOverview extends BaseWidget
             ->count();
         $customerIncrease = $currentCustomerCount - $previousCustomerCount;
 
-        $totalAwardsAmount = EmployeeAward::sum('award_amount');
+        $totalAwardsAmount = EmployeeAward::where('status', EmployeeAwardStatus::APPROVED)->sum('award_amount');
 
-        $totalAvansAmount = EmployeeAvans::sum('amount');
+        $totalAvansAmount = EmployeeAvans::where('status', EmployeeAvansStatus::APPROVED)->sum('amount');
+
+        $totalPenalAmount = EmployeePenal::where('status', EmployeePenalStatus::APPROVED)->sum('penal_amount');
 
 
         return [
@@ -51,6 +57,12 @@ class StatsOverview extends BaseWidget
                 ->chart([5, 7, 3, 9, 4, 6, 10]),
 
             Stat::make('Ümumi Avans Məbləği', $totalAvansAmount . ' AZN')
+                ->color('info')
+                ->description('Ümumi avans məbləği')
+                ->descriptionIcon('heroicon-m-currency-dollar')
+                ->chart([3, 8, 2, 11, 5, 7, 12]),
+
+            Stat::make('Ümumi Avans Məbləği', $totalPenalAmount . ' AZN')
                 ->color('info')
                 ->description('Ümumi avans məbləği')
                 ->descriptionIcon('heroicon-m-currency-dollar')
