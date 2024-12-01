@@ -16,7 +16,7 @@ class EmployeeAttendanceObserver
         $employeeOut = $employeeAttendance->employee_out;
 
         if ($employeeIn && $employeeOut) {
-            $duration = Carbon::parse($employeeOut)->diffInMinutes(Carbon::parse($employeeIn)) / 60;
+            $duration = Carbon::parse($employeeOut)->diffInMinutes(Carbon::parse($employeeIn));
 
             $employeeAttendance->update([
                 'duration' => $duration,
