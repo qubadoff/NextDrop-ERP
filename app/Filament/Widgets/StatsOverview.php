@@ -44,13 +44,13 @@ class StatsOverview extends BaseWidget
                 ->descriptionIcon($customerIncrease >= 0 ? 'heroicon-m-arrow-trending-up' : 'heroicon-m-arrow-trending-down')
                 ->chart([7, 2, 10, 3, 15, 4, 17]),
 
-            Stat::make('Ümumi Mükafat Məbləği', number_format($totalAwardsAmount, 2) . ' AZN')
+            Stat::make('Ümumi Mükafat Məbləği', $totalAwardsAmount . ' AZN')
                 ->color('success')
                 ->description('Ümumi mükafat məbləği')
                 ->descriptionIcon('heroicon-m-trophy')
                 ->chart([5, 7, 3, 9, 4, 6, 10]),
 
-            Stat::make('Ümumi Avans Məbləği', number_format($totalAvansAmount, 2) . ' AZN')
+            Stat::make('Ümumi Avans Məbləği', $totalAvansAmount . ' AZN')
                 ->color('info')
                 ->description('Ümumi avans məbləği')
                 ->descriptionIcon('heroicon-m-currency-dollar')
