@@ -4,6 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Employee\EmployeeStatusEnum;
 use App\Models\Employee;
+use App\Models\EmployeeAvans;
 use App\Models\EmployeeAward;
 use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
@@ -31,8 +32,10 @@ class StatsOverview extends BaseWidget
             ->count();
         $customerIncrease = $currentCustomerCount - $previousCustomerCount;
 
-        // Toplam ödül miktarı
         $totalAwardsAmount = EmployeeAward::sum('award_amount');
+
+        $totalAvansAmount = EmployeeAvans::sum('amount');
+
 
         return [
             Stat::make('Bütün aktiv Əməkdaşlar', Employee::query()->where('status', EmployeeStatusEnum::ACTIVE)->count())
@@ -46,6 +49,12 @@ class StatsOverview extends BaseWidget
                 ->description('Ümumi mükafat məbləği')
                 ->descriptionIcon('heroicon-m-trophy')
                 ->chart([5, 7, 3, 9, 4, 6, 10]),
+
+            Stat::make('Ümumi Avans Məbləği', number_format($totalAvansAmount, 2) . ' AZN')
+                ->color('info')
+                ->description('Ümumi avans məbləği')
+                ->descriptionIcon('heroicon-m-currency-dollar')
+                ->chart([3, 8, 2, 11, 5, 7, 12]),
         ];
     }
 }
