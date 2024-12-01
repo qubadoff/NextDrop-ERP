@@ -10,13 +10,33 @@ use Illuminate\Support\Facades\DB;
 class VacationOperationObserver
 {
     /**
-     * Handle the VacationDay "created" event.
-     * @throws Exception
+     * Handle the VacationDay "creating" event.
      */
-    public function created(VacationDay $vacationDay): void
+    public function creating(VacationDay $vacationDay): bool
     {
-        //
+        $employeeId = $vacationDay->employee_id;
+
+        $dayLimit = DB::table('employee_vacation_day_options')
+            ->where('employee_id', $employeeId)
+            ->value('day_count');
+
+        $totalVacationDays = DB::table('vacation_days')
+            ->where('employee_id', $employeeId)
+            ->sum('vacation_day_count');
+
+        if ($totalVacationDays + $vacationDay->vacation_day_count > $dayLimit) {
+            Notification::make()
+                ->title('Əməliyyat icra olunmadı!')
+                ->danger()
+                ->body('İşçinin məzuniyyət günlərinin sayı ' . $dayLimit . ' gündən artıq olmamalıdır!')
+                ->send();
+
+            return false;
+        }
+
+        return true;
     }
+
     public function updated(VacationDay $vacationDay): void
     {
         //
