@@ -8,6 +8,7 @@ use App\Models\Branch;
 use App\Models\Employee;
 use App\Models\EmployeeAttendance;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
@@ -45,6 +46,7 @@ class EmployeeAttendanceResource extends Resource
                         ->label('Əməkdaş'),
                     DateTimePicker::make('employee_in')->label('Giriş vaxtı')->required(),
                     DateTimePicker::make('employee_out')->label('Çıxış vaxtı')->required(),
+                    Hidden::make('qr_code')->default('MANUAL'),
                 ])->columns()
             ]);
     }
