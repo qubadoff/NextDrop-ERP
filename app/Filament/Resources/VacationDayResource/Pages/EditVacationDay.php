@@ -29,9 +29,7 @@ class EditVacationDay extends EditRecord
     {
         $employeeId = $data['employee_id'];
 
-        dd($data);
-
-        if ($this->record->status == VacationStatusEnum::APPROVED->value) {
+        if ($this->record->status == VacationStatusEnum::APPROVED) {
             Notification::make()
                 ->title('Əməliyyat icra olunmadı!')
                 ->danger()
