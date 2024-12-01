@@ -30,7 +30,7 @@ class EmployeeAttendanceObserver
 
             // Duration değerini dakika olarak kaydet
             $employeeAttendance->update([
-                'duration' => $duration,
+                'duration' => $duration * -1,
             ]);
         }
     }
