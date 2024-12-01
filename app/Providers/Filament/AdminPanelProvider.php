@@ -6,6 +6,7 @@ use App\Filament\Resources\EmployeeAvansResource\Widgets\EmployeeAvansChart;
 use App\Filament\Resources\EmployeeAwardResource\Widgets\EmployeeAwardResource;
 use App\Filament\Resources\EmployeePenalResource\Widgets\PenalChart;
 use App\Filament\Widgets\StatsOverview;
+use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -22,6 +23,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use TomatoPHP\FilamentMediaManager\FilamentMediaManagerPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -45,16 +47,14 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                //Widgets\AccountWidget::class,
                 StatsOverview::class,
                 PenalChart::class,
                 EmployeeAwardResource::class,
                 EmployeeAvansChart::class,
-                //Widgets\FilamentInfoWidget::class,
             ])
             ->plugins([
-                \TomatoPHP\FilamentMediaManager\FilamentMediaManagerPlugin::make(),
-                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
+                FilamentMediaManagerPlugin::make(),
+                FilamentShieldPlugin::make()
             ])
             ->middleware([
                 EncryptCookies::class,
