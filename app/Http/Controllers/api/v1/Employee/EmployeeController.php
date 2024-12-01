@@ -86,6 +86,7 @@ class EmployeeController extends Controller
 
         try {
             $today = Carbon::today();
+            $weekday = $today->dayOfWeekIso;
 
             $attendance = EmployeeAttendance::where('employee_id', $employee->id)
                 ->whereDate('employee_in', $today)
@@ -102,10 +103,36 @@ class EmployeeController extends Controller
                     'duration' => $duration,
                 ]);
             } else {
+                $employeeIn = Carbon::now();
+
+                $isFirstEntry = !EmployeeAttendance::where('employee_id', $employee->id)
+                    ->whereDate('employee_in', $today)
+                    ->exists();
+
+                if ($isFirstEntry) {
+                    $workHours = DB::table('employee_work_hours')
+                        ->where('employee_id', $employee->id)
+                        ->where('weekday', $weekday)
+                        ->first();
+
+                    if ($workHours && $employeeIn->gt(Carbon::parse($workHours->start_time))) {
+                        $startTime = Carbon::parse($workHours->start_time);
+                        $lateTime = $startTime->diffInMinutes($employeeIn);
+
+                        DB::table('late_employees')->insert([
+                            'employee_id' => $employee->id,
+                            'date' => $employeeIn,
+                            'late_time' => $lateTime,
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ]);
+                    }
+                }
+
                 EmployeeAttendance::create([
                     'employee_id' => $employee->id,
                     'branch_id' => $employee->branch_id,
-                    'employee_in' => Carbon::now(),
+                    'employee_in' => $employeeIn,
                     'qr_code' => $request->qrCode,
                     'latitude' => $request->latitude,
                     'longitude' => $request->longitude,
