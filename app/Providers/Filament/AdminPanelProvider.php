@@ -48,9 +48,9 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 StatsOverview::class,
-                PenalChart::class,
-                EmployeeAwardResource::class,
-                EmployeeAvansChart::class,
+                //PenalChart::class,
+                //EmployeeAwardResource::class,
+                //EmployeeAvansChart::class,
             ])
             ->plugins([
                 FilamentMediaManagerPlugin::make(),
