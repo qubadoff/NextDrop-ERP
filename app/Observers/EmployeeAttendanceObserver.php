@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\EmployeeAttendance;
+use Carbon\Carbon;
 
 class EmployeeAttendanceObserver
 {
@@ -11,7 +12,16 @@ class EmployeeAttendanceObserver
      */
     public function created(EmployeeAttendance $employeeAttendance): void
     {
-        //
+        $employeeIn = $employeeAttendance->employee_in;
+        $employeeOut = $employeeAttendance->employee_out;
+
+        if ($employeeIn && $employeeOut) {
+            $duration = Carbon::parse($employeeOut)->diffInMinutes(Carbon::parse($employeeIn)) / 60;
+
+            $employeeAttendance->update([
+                'duration' => $duration,
+            ]);
+        }
     }
 
     /**
