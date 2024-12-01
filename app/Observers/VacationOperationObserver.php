@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\VacationDay;
+use Exception;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\DB;
 
@@ -14,28 +15,36 @@ class VacationOperationObserver
      */
     public function created(VacationDay $vacationDay): void
     {
-        $employeeId = $vacationDay->employee_id;
+        DB::beginTransaction();
 
-        $dayLimit = DB::table('employee_vacation_day_options')
-            ->where('employee_id', $employeeId)
-            ->value('day_count');
+        try {
+            $employeeId = $vacationDay->employee_id;
 
-        $totalVacationDays = DB::table('vacation_days')
-            ->where('employee_id', $employeeId)
-            ->sum('vacation_day_count');
+            $dayLimit = DB::table('employee_vacation_day_options')
+                ->where('employee_id', $employeeId)
+                ->value('day_count');
 
-        if ($totalVacationDays > $dayLimit) {
-            Notification::make()
-                ->title('Əməliyyat icra olunmadı !')
-                ->danger()
-                ->body('İşçinin məzuniyyət günlərinin sayı ' . $dayLimit - $totalVacationDays . ' - gündən artıq olmamalıdır !')
-                ->send();
+            $totalVacationDays = DB::table('vacation_days')
+                ->where('employee_id', $employeeId)
+                ->sum('vacation_day_count');
 
+            if ($totalVacationDays > $dayLimit) {
+                Notification::make()
+                    ->title('Əməliyyat icra olunmadı !')
+                    ->danger()
+                    ->body('İşçinin məzuniyyət günlərinin sayı ' . $dayLimit . ' gündən artıq olmamalıdır !')
+                    ->send();
+
+                DB::rollBack();
+                return;
+            }
+
+            DB::commit();
+        } catch (Exception $e) {
             DB::rollBack();
+            throw $e;
         }
-
     }
-
     public function updated(VacationDay $vacationDay): void
     {
         $employeeId = $vacationDay->employee_id;
