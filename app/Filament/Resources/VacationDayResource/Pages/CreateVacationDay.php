@@ -26,7 +26,7 @@ class CreateVacationDay extends CreateRecord
 
         $totalVacationDays = DB::table('vacation_days')
             ->where('employee_id', $employeeId)
-            ->sum('vacation_day_count');
+            ->sum('vacation_day_count') ?? 0;
 
         if ($totalVacationDays + $data['vacation_day_count'] > $dayLimit) {
             Notification::make()
