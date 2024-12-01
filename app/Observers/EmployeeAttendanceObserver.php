@@ -33,10 +33,24 @@ class EmployeeAttendanceObserver
 
     /**
      * Handle the EmployeeAttendance "updated" event.
+     * @throws Exception
      */
     public function updated(EmployeeAttendance $employeeAttendance): void
     {
-        //
+        $employeeIn = $employeeAttendance->employee_in;
+        $employeeOut = $employeeAttendance->employee_out;
+
+        if ($employeeIn && $employeeOut) {
+            if (Carbon::parse($employeeOut)->lessThan(Carbon::parse($employeeIn))) {
+                throw new Exception('Çıxış vaxtı giriş vaxtından balaca ola bilməz !');
+            }
+
+            $duration = Carbon::parse($employeeOut)->diffInMinutes(Carbon::parse($employeeIn));
+
+            $employeeAttendance->updateQuietly([
+                'duration' => $duration,
+            ]);
+        }
     }
 
     /**
