@@ -12,7 +12,7 @@ class VacationOperationObserver
     /**
      * Handle the VacationDay "creating" event.
      */
-    public function creating(VacationDay $vacationDay): bool
+    public function creating(VacationDay $vacationDay): void
     {
         //
     }
