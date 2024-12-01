@@ -109,6 +109,17 @@ class EmployeeResource extends Resource
                 ])->columns(4),
 
                 Section::make([
+                    Repeater::make('employeeVacationDayOption')
+                        ->label('Məzuniyyət günlərinin sayı')
+                        ->required()
+                        ->relationship()
+                        ->maxItems(1)
+                        ->schema([
+                            TextInput::make('day_count')->required()->default(0)->label('Məzuniyyət günlərinin sayı')->numeric(),
+                        ])
+                ]),
+
+                Section::make([
                     Select::make('driver_license')->options([
                         DriverLicenseEnum::YES->value => 'Var',
                         DriverLicenseEnum::NO->value => 'Yoxdur',

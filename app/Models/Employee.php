@@ -90,4 +90,9 @@ class Employee extends Authenticatable
     {
         return $this->hasMany(EmployeeAttendance::class, 'employee_id', 'id');
     }
+
+    public function employeeVacationDayOption(): HasMany
+    {
+        return $this->hasMany(EmployeeVacationDayOption::class, 'employee_id', 'id');
+    }
 }
