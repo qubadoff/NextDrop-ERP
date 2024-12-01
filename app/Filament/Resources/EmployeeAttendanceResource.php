@@ -47,6 +47,8 @@ class EmployeeAttendanceResource extends Resource
                     DateTimePicker::make('employee_in')->label('Giriş vaxtı')->required(),
                     DateTimePicker::make('employee_out')->label('Çıxış vaxtı')->required(),
                     Hidden::make('qr_code')->default('MANUAL'),
+                    Hidden::make('latitude')->default('MANUAL'),
+                    Hidden::make('longitude')->default('MANUAL'),
                 ])->columns()
             ]);
     }
