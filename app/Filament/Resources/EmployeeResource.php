@@ -28,6 +28,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Form;
+use Filament\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -58,9 +59,13 @@ class EmployeeResource extends Resource
                     TextInput::make('father_name')->required()->label('Ata adı'),
                     TextInput::make('phone')->required()->label('Telefon'),
                     TextInput::make('email')->required()->email()->unique('employees', 'email', ignoreRecord: true)->label('Email'),
-                    TextInput::make('password')->required()->password()
-                        ->dehydrateStateUsing(fn ($state) => filled($state) ? Hash::make($state) : null)
-                        ->label('Password'),
+                    TextInput::make('password')
+                        ->password()
+                        ->revealable()
+                        ->dehydrated(fn ($state) => filled($state))
+                        ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                        ->label('Şifrə')
+                        ->required(fn (Page $livewire) => $livewire instanceof Pages\CreateEmployee),
                     DatePicker::make('birthday')->required()->label('Doğum tarixi'),
                     TextInput::make('id_number')->required()->label('Ş/V seriya nömrəsi'),
                     TextInput::make('id_pin_code')->required()->label('Ş/V fin kodu'),
