@@ -55,7 +55,7 @@ class StatsOverview extends BaseWidget
             Stat::make('Ümumi Əməkhaqqı Məbləği', $totalSalaryAmount . ' AZN')
                 ->color('success')
                 ->description('Ümumi Əməkhaqqı məbləği')
-                ->descriptionIcon('heroicon-m-trophy')
+                ->descriptionIcon('heroicon-m-currency-dollar')
                 ->chart([5, 7, 3, 9, 4, 6, 10]),
 
 
