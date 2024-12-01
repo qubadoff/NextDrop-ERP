@@ -44,7 +44,6 @@ class VacationDayResource extends Resource
                         ->options(
                             Employee::where('status', EmployeeStatusEnum::ACTIVE)
                                 ->pluck('id', 'name')
-                                ->get()
                                 ->mapWithKeys(function ($person) {
                                     return [$person->id => $person->name . ' ' . $person->surname . ' ' . $person->id_pin_code];
                                 })
