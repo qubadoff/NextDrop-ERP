@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Employee\EmployeeStatusEnum;
 use App\Filament\Resources\EmployeeAttendanceResource\Pages;
 use App\Models\Branch;
 use App\Models\Employee;
@@ -32,7 +33,16 @@ class EmployeeAttendanceResource extends Resource
             ->schema([
                 Section::make([
                     Select::make('branch_id')->label('Filial')->options(Branch::all()->pluck('name', 'id'))->required(),
-                    Select::make('employee_id')->label('Əməkdaş')->options(Employee::all()->pluck('name', 'id'))->required(),
+                    Select::make('employee_id')
+                        ->options(
+                            Employee::where('status', EmployeeStatusEnum::ACTIVE)
+                                ->get()
+                                ->mapWithKeys(function ($person) {
+                                    return [$person->id => $person->name . ' ' . $person->surname . ' ' . $person->id_pin_code];
+                                })
+                        )
+                        ->required()
+                        ->label('Əməkdaş'),
                     DateTimePicker::make('employee_in')->label('Giriş vaxtı')->required(),
                     DateTimePicker::make('employee_out')->label('Çıxış vaxtı')->required(),
                 ])->columns()
