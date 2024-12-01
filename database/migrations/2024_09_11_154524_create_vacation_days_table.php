@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('vacation_days', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('employee_id');
-            $table->integer('vacation_all_days_count')->nullable();
             $table->date('vacation_start_date');
             $table->date('vacation_end_date');
             $table->float('amount')->nullable();
