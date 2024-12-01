@@ -7,16 +7,10 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Support\Exceptions\Halt;
 use Illuminate\Support\Facades\DB;
-use JetBrains\PhpStorm\NoReturn;
 
 class CreateVacationDay extends CreateRecord
 {
     protected static string $resource = VacationDayResource::class;
-
-//    protected function getRedirectUrl(): string
-//    {
-//        return $this->getResource()::getUrl('index');
-//    }
 
     /**
      * @throws Halt
