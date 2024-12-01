@@ -44,14 +44,13 @@ class VacationDayResource extends Resource
                         ->options(
                             Employee::where('status', EmployeeStatusEnum::ACTIVE)
                                 ->get()
-                                ->mapWithKeys(function ($person) {
-                                    return [
-                                        $person->id => $person->name . ' ' . $person->surname . ' (' . $person->id_pin_code . ')'
-                                    ];
-                                })
+                                ->mapWithKeys(fn ($employee) => [
+                                    $employee->id => $employee->name . ' ' . $employee->surname . ' (' . $employee->id_pin_code . ')'
+                                ])
                         )
                         ->required()
                         ->label('Əməkdaş'),
+
 
                     TextInput::make('vacation_day_count')->required()->label('Gün sayı')->suffix(' Gün')->numeric(),
                     DatePicker::make('vacation_start_date')->required()->label('Məzuniyyətin başlama vaxtı'),
