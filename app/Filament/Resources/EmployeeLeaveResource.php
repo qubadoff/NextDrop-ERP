@@ -65,7 +65,9 @@ class EmployeeLeaveResource extends Resource
                 Tables\Columns\TextColumn::make('index')
                     ->label('№')
                     ->rowIndex(),
-                Tables\Columns\TextColumn::make('employee.name')->label('İşçi')->searchable(),
+                Tables\Columns\TextColumn::make('employee.name')->label('Ad')->searchable(),
+                Tables\Columns\TextColumn::make('employee.surname')->label('Soyad')->searchable(),
+                Tables\Columns\TextColumn::make('employee.id_pin_code')->label('Fin kod')->searchable(),
                 Tables\Columns\TextColumn::make('start_date')->label('Başlama tarixi')->dateTime(),
                 Tables\Columns\TextColumn::make('end_date')->label('Bitiş tarixi')->dateTime(),
                 Tables\Columns\SelectColumn::make('status')->options([

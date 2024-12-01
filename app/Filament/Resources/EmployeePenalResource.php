@@ -72,7 +72,9 @@ class EmployeePenalResource extends Resource
                 Tables\Columns\TextColumn::make('index')
                     ->label('№')
                     ->rowIndex(),
-                Tables\Columns\TextColumn::make('employee.name')->label('İşçi')->searchable(),
+                Tables\Columns\TextColumn::make('employee.name')->label('Ad')->searchable(),
+                Tables\Columns\TextColumn::make('employee.surname')->label('Soyad')->searchable(),
+                Tables\Columns\TextColumn::make('employee.id_pin_code')->label('Fin kod')->searchable(),
                 Tables\Columns\TextColumn::make('penal_amount')->label('Cərimə məbləği')->money('azn'),
                 Tables\Columns\TextColumn::make('penal_type')->label('Tutulma tipi')->badge(),
                 Tables\Columns\TextColumn::make('who_added')->label('Kim tərəfindən ?'),

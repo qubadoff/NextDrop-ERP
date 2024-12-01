@@ -67,6 +67,9 @@ class EmployeeAvansResource extends Resource
                     ->label('№')
                     ->rowIndex(),
                 Tables\Columns\TextColumn::make('employee.name')->label('İşçi')->searchable(),
+                Tables\Columns\TextColumn::make('employee.name')->label('Ad')->searchable(),
+                Tables\Columns\TextColumn::make('employee.surname')->label('Soyad')->searchable(),
+                Tables\Columns\TextColumn::make('employee.id_pin_code')->label('Fin kod')->searchable(),
                 Tables\Columns\TextColumn::make('amount')->label('Avans məbləği')->money('azn'),
                 Tables\Columns\TextColumn::make('date')->label('Tarix')->date(),
                 Tables\Columns\SelectColumn::make('status')->options([

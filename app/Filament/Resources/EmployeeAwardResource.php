@@ -72,7 +72,9 @@ class EmployeeAwardResource extends Resource
                 Tables\Columns\TextColumn::make('index')
                     ->label('№')
                     ->rowIndex(),
-                Tables\Columns\TextColumn::make('employee.name')->label('İşçi')->searchable(),
+                Tables\Columns\TextColumn::make('employee.name')->label('Ad')->searchable(),
+                Tables\Columns\TextColumn::make('employee.surname')->label('Soyad')->searchable(),
+                Tables\Columns\TextColumn::make('employee.id_pin_code')->label('Fin kod')->searchable(),
                 Tables\Columns\TextColumn::make('award_amount')->label('Mükafat məbləği')->searchable()->money('AZN'),
                 Tables\Columns\TextColumn::make('date')->label('Tarix')->date(),
                 Tables\Columns\TextColumn::make('award_type')->label('Ödəniş tipi')->badge(),
