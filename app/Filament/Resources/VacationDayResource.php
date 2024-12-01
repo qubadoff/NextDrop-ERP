@@ -48,7 +48,6 @@ class VacationDayResource extends Resource
                         )
                         ->required()
                         ->label('Əməkdaş'),
-                    TextInput::make('vacation_all_days_count')->required()->label('İllik məzuniyyət ( gün )')->numeric(),
                     DatePicker::make('vacation_start_date')->required()->label('Məzuniyyətin başlama vaxtı'),
                     DatePicker::make('vacation_end_date')->required()->label('Məzuniyyətin bitmə vaxtı'),
                     TextInput::make('amount')->label('Məbləğ')->suffix(' AZN'),
