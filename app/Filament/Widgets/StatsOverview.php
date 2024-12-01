@@ -53,7 +53,7 @@ class StatsOverview extends BaseWidget
                 ->chart([7, 2, 10, 3, 15, 4, 17]),
 
             Stat::make('Ümumi Əməkhaqqı Məbləği', $totalSalaryAmount . ' AZN')
-                ->color('success')
+                ->color('info')
                 ->description('Ümumi Əməkhaqqı məbləği')
                 ->descriptionIcon('heroicon-m-currency-dollar')
                 ->chart([5, 7, 3, 9, 4, 6, 10]),
@@ -66,7 +66,7 @@ class StatsOverview extends BaseWidget
                 ->chart([5, 7, 3, 9, 4, 6, 10]),
 
             Stat::make('Ümumi Avans Məbləği', $totalAvansAmount . ' AZN')
-                ->color('info')
+                ->color('success')
                 ->description('Ümumi avans məbləği')
                 ->descriptionIcon('heroicon-m-currency-dollar')
                 ->chart([3, 8, 2, 11, 5, 7, 12]),
