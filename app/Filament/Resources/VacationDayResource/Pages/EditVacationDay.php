@@ -29,7 +29,7 @@ class EditVacationDay extends EditRecord
     {
         $employeeId = $data['employee_id'];
 
-        dd($employeeId);
+        dd($data);
 
         if ($this->record->status == VacationStatusEnum::APPROVED->value) {
             Notification::make()
