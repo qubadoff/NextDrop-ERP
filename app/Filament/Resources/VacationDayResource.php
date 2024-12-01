@@ -14,9 +14,11 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\DB;
 
 class VacationDayResource extends Resource
 {
@@ -32,6 +34,33 @@ class VacationDayResource extends Resource
     protected static ?int $navigationSort = 10;
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard';
+
+    protected function beforeCreate(array $data): void
+    {
+        $employeeId = $data['employee_id'];
+
+        // Employee'nin vacation day limitini al
+        $dayLimit = DB::table('employee_vacation_day_options')
+            ->where('employee_id', $employeeId)
+            ->value('day_count');
+
+        // Mevcut alınan vacation days toplamını hesapla
+        $totalVacationDays = DB::table('vacation_days')
+            ->where('employee_id', $employeeId)
+            ->sum('vacation_day_count');
+
+        // Yeni tatil günüyle toplamı kontrol et
+        if ($totalVacationDays + $data['vacation_day_count'] > $dayLimit) {
+            Notification::make()
+                ->title('Əməliyyat icra olunmadı !')
+                ->danger()
+                ->body('İşçinin məzuniyyət günlərinin sayı ' . $dayLimit . ' gündən artıq olmamalıdır !')
+                ->send();
+
+            // İşlemi durdur
+            $this->halt();
+        }
+    }
 
     public static function form(Form $form): Form
     {
