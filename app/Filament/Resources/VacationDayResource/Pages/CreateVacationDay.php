@@ -12,7 +12,8 @@ class CreateVacationDay extends CreateRecord
 {
     protected static string $resource = VacationDayResource::class;
 
-    protected function beforeCreate(array $data): void
+
+    protected function mutateFormDataBeforeCreate(array $data): array
     {
         $employeeId = $data['employee_id'];
 
@@ -37,6 +38,7 @@ class CreateVacationDay extends CreateRecord
             // İşlemi durdur
             $this->halt();
         }
-    }
 
+        return $data;
+    }
 }
