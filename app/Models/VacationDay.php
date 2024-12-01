@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Employee\EmployeeStatusEnum;
 use App\Vacation\VacationPayTypeEnum;
 use App\Vacation\VacationStatusEnum;
 use App\Vacation\VacationTypeEnum;
@@ -25,6 +26,6 @@ class VacationDay extends Model
 
     public function employee(): BelongsTo
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Employee::class)->where('status', EmployeeStatusEnum::ACTIVE);
     }
 }
