@@ -93,6 +93,7 @@ class EmployeeResource extends Resource
                         EmployeeStatusEnum::ACTIVE->value => 'Aktiv',
                         EmployeeStatusEnum::INACTIVE->value => 'Deaktiv',
                     ])->required()->default(EmployeeStatusEnum::ACTIVE->value)->label('Status'),
+                    TextInput::make('device_id')->label('Cihaz ID'),
                 ])->columns(5),
 
                 Section::make([
