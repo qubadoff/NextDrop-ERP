@@ -19,6 +19,7 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
+            'device_id' => 'nullable|string',
         ]);
 
         $employee = Employee::where('email', $request->email)->first();
@@ -30,6 +31,13 @@ class AuthController extends Controller
 
         if (!$employee || !Hash::check($request->password, $employee->password)) {
             return response()->json(['message' => 'Email və ya şifrə yanlışdır !'], 422);
+        }
+
+        if (is_null($employee->device_id)) {
+            $employee->device_id = $request->device_id;
+            $employee->save();
+        } elseif ($employee->device_id !== $request->device_id) {
+            return response()->json(['message' => 'Sizin cihaz fərqlidir ! Zəhmət olmazsa bir cihazdan istifadə edin !'], 422);
         }
 
         $token = $employee->createToken('EmployeeLoginToken')->plainTextToken;
