@@ -24,7 +24,7 @@ class AuthController extends Controller
 
         $employee = Employee::where('email', $request->email)->first();
 
-        dd($employee->status);
+        dd($employee);
 
         if ($employee->status === EmployeeStatusEnum::INACTIVE->value) {
             $employee->tokens()->delete();
