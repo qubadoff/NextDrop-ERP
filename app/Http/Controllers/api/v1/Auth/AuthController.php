@@ -24,6 +24,8 @@ class AuthController extends Controller
 
         $employee = Employee::where('email', $request->email)->first();
 
+        dd($employee->status);
+
         if ($employee->status === EmployeeStatusEnum::INACTIVE->value) {
             $employee->tokens()->delete();
             return response()->json(['message' => 'Sizin hesabınız deaktiv edilib !'], 422);
