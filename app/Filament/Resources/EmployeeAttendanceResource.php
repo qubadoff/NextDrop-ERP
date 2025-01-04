@@ -86,7 +86,7 @@ class EmployeeAttendanceResource extends Resource
                         return $late ? formatDuration($late) : 'Gecikmə yoxdur';
                     })
 
-            ])->defaultSort('created_at', 'desc')
+            ])
 
             ->groups([
                 Tables\Grouping\Group::make('created_at')
